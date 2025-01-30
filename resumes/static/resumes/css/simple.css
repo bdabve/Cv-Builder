@@ -1,0 +1,145 @@
+@font-face {
+    font-family: 'TT Condensed';
+    src: url('/static/fonts/TT Commons Pro Trial Condensed Medium.ttf');
+}
+
+@font-face {
+    font-family: 'TT Condensed Italic';
+    src:url('/static/fonts/TT Commons Pro Trial Condensed Medium Italic.ttf')
+}
+
+@page {
+  font-family: 'Monaco';
+  margin: 1cm;
+}
+
+html {
+  font-family: 'Monaco';
+  font-size: 9pt;
+}
+
+body {
+    margin: 0;
+}
+
+header {
+    position: absolute;
+    top: 0;
+    display: flex;
+    margin-bottom: 1em;
+    max-height: 160px;
+    width: 100%;
+}
+
+header .name-job {
+    flex: 3;
+    margin-left: 20px;
+}
+
+h1, h2 {
+    font-family: 'TT Condensed Italic';
+}
+
+header h1 {
+    font-size: 30pt;
+    font-weight: bold;
+    margin: 2mm 0;
+}
+
+header h2 {
+    font-size: 14pt;
+    font-weight: normal;
+    margin: 2mm 0;
+}
+
+img {
+  width: 150px;
+}
+
+ul {
+    list-style: none;
+    padding: 0 1em;
+}
+
+ul li::before {
+    color: #c86f5b;
+    content: '• ';
+    line-height: 16pt;
+    vertical-align: middle;
+}
+
+.link-url {
+    color: #4c69a2;
+}
+
+.link-name::after {
+    content: ': ';
+}
+
+.small-title {
+    font-size: 13px;
+    font-weight: bold;
+    margin: .5em 0;
+}
+
+.date {
+    color: #878d8e;
+    margin: .5em 0;
+    /*font-size: 11pt;*/
+}
+
+#container {
+    display: flex;
+    position: absolute;
+    top: 160px;
+}
+
+#left {
+    flex: 1;
+    min-width: 5cm;
+    /*break-before: right;*/
+}
+
+#left h2 {
+    font-size: 14pt;
+    font-weight: bold;
+}
+
+#profile p, #formation p, #experience p, #experience ul {
+    padding-left: 3em;
+}
+
+#right {
+    padding-right: 10mm;
+}
+
+#right h2 {
+    font-size: 16pt;
+    font-weight: bold;
+}
+
+.language {
+    display: flex;
+    margin: 1em 0;
+    padding-right: 5em;
+}
+
+.language p {
+    margin: 0;
+}
+
+.language p:first-child {
+    flex: 1;
+}
+
+.language p:first-child::after {
+    content: ':';
+}
+
+#formation p {
+    margin: .5mm 0;
+}
+
+.icon {
+    color: #000000;
+}

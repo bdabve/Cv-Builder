@@ -1,0 +1,254 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'resumes/css/form_style.css' %}">
+    <title>Create CV</title>
+</head>
+<body>
+    <div id="container">
+        <h1>Create Your CV</h1>
+        <form id="form" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- Hendle Errors -->
+            {% if form.errors %}
+                <div class="errors">
+                    <ul>
+                        {% for field, errors in form.errors.items %}
+                            <li>{{ field }}: {{ errors|join:", " }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <!-- Information -->
+            <div class="form-group">
+                <div class="form-group-input">
+                    <label for="{{ form.poste.id_for_label }}">{{ form.poste.label }}</label>
+                    {{ form.poste }}
+                </div>
+                <div class="form-group-input">
+                    <label for="{{ form.profile_image.id_for_label }}">{{ form.profile_image.label }}</label>
+                    {{ form.profile_image }}
+                </div>
+            </div> <!-- Poste and Image profile -->
+
+            <div class="form-group">
+                <div class="form-group-input">
+                    <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                    {{ form.first_name }}
+                </div>
+                <div class="form-group-input">
+                    <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                    {{ form.last_name }}
+                </div>
+            </div><!-- First and Last Name -->
+
+            <div class="form-group">
+                <div class="form-group-input">
+                    <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                    {{ form.email }}
+                </div>
+                <div class="form-group-input">
+                    <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+                    {{ form.phone }}
+                </div>
+            </div> <!-- Email and Phone -->
+
+            <div class="form-group">
+                <div class="form-group-input">
+                    <label for="{{ form.address.id_for_label }}">{{ form.address.label }}</label>
+                    {{ form.address }}
+                </div>
+                <div class="form-group-input">
+                    <label for="{{ form.ville.id_for_label }}">{{ form.ville.label }}</label>
+                    {{ form.ville }}
+                </div>
+            </div><!-- Address and Ville -->
+
+            <div class="form-group">
+                <div class="form-group-input">
+                    <label for="{{ form.code_postal.id_for_label }}">{{ form.code_postal.label }}</label>
+                    {{ form.code_postal }}
+                </div>
+                <div class="form-group-input">
+                    <label for="{{ form.paye.id_for_label }}">{{ form.paye.label }}</label>
+                    {{ form.paye }}
+                </div>
+            </div><!-- CodePostal and Paye-->
+
+            <div class="form-group">
+                <div class="form-group-input">
+                    <label for="{{ form.sit_family.id_for_label }}">{{ form.sit_family.label }}</label>
+                    {{ form.sit_family }}
+                </div>
+                <div class="form-group-input">
+                    <label for="{{ form.permis.id_for_label }}">{{ form.permis.label }}</label>
+                    {{ form.permis }}
+                </div>
+            </div><!-- Situation Familiale and Permis -->
+
+            <div class="form-group">
+                <div class="form-group-input">
+                    <label for="{{ form.d_naissance.id_for_label }}">{{ form.d_naissance.label }}</label>
+                    {{ form.d_naissance }}
+                </div>
+            </div><!-- D.Naissance and Permis -->
+
+            <div class="form-group">
+                <label for="{{ form.profile.id_for_label }}">{{ form.profile.label }}</label>
+                {{ form.profile }}
+            </div><!-- Profile -->
+
+            <hr>
+            <!-- ===================================================================== -->
+
+            <!-- Links -->
+            <h2 class="title">Links</h2>
+            <div id="links-container">
+                <div class="form-group">
+                    <div class="form-group-input">
+                        <input type="text" name="link_name_0" placeholder="Enter link name (e.g., YouTube)" class="form-control">
+                    </div>
+                    <div class="form-group-input">
+                        <input type="url" name="link_url_0" placeholder="Enter link URL" class="form-control">
+                        <button type="button" class="btn remove-btn link-remove-btn">Remove</button>
+                    </div>
+                </div>
+            </div>  
+            <button id="add-link-btn" type="button" class="btn primary-btn">+ Add Link</button>
+            <hr>
+            <!-- ===================================================================== -->
+
+            <!-- Languages -->
+            <h2 class="title">Languages</h2>
+            <div id="languages-container">
+                <div class="form-group">
+                    <div class="form-group-input">
+                        <input type="text" name="languages_0" placeholder="Enter a language" class="form-control">
+                    </div>
+                    <div class="form-group-input">
+                        <select id="" name="proficiency_0">
+                            <option value="1" selected>Beginner</option>
+                            <option value="2">Intermediate</option>
+                            <option value="3">Fluent</option>
+                            <option value="4">Maternal</option>
+                        </select>
+                        <button type="button" class="btn remove-btn language-remove-btn">Remove</button>
+                    </div>
+                </div>  
+            </div>
+            <button id="add-language-btn" type="button" class="btn primary-btn">+ Add Language</button>
+            <br>
+            <hr>
+            <!-- ===================================================================== -->
+
+            <!-- Education -->
+            <h2 class="title">Education</h2>
+
+            <div class="form-group">
+                <div class="form-group-input">
+                    <label for="{{ form.edu_ecole.id_for_label }}">{{ form.edu_ecole.label }}</label>
+                    {{ form.edu_ecole }}
+                </div>
+                <div class="form-group-input">
+                    <label for="{{ form.edu_diplome.id_for_label }}">{{ form.edu_diplome.label }}</label>
+                    {{ form.edu_diplome }}
+                </div>
+            </div><!-- Ecole and Diplome -->
+
+            <div class="form-group">
+                <div class="form-group-input date-container">
+                    <label for="{{ form.edu_start_date.id_for_label }}">{{ form.edu_start_date.label }}</label>
+                    <div class="date">
+                        <div>{{ form.edu_start_date }}</div>
+                        <div>{{ form.edu_end_date }}</div>
+                    </div>
+                </div>
+                <div class="form-group-input">
+                    <label for="{{ form.edu_ville.id_for_label }}">{{ form.edu_ville.label }}</label>
+                    {{ form.edu_ville }}
+                </div>
+            </div><!-- Date and Ville -->
+
+            <div class="form-group">
+                <label for="{{ form.edu_description.id_for_label }}">{{ form.edu_description.label }}</label>
+                {{ form.edu_description }}
+            </div><!-- Description -->
+            <hr>
+
+            <!-- ===================================================================== -->
+
+            <!-- Skills -->
+
+            <h2 class="title">Compétences</h2>
+            <div id="skills-container">
+
+                <div id="common-skills" class="common-skills">
+                </div>
+
+                <div class="form-group">
+                    <div class="form-group-input">
+                        <input type="text" name="skills_0" placeholder="Enter a skill" class="form-control">
+                    </div>
+                    <div class="form-group-input">
+                        <select id="" name="niveau_0" class="">
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                        </select>
+                        <button type="button" class="btn remove-btn skill-remove-btn">Remove</button>
+                    </div>
+                </div>  
+            </div>
+            <button id="add-skill-btn" type="button" class="btn primary-btn">+ Add Skill</button>
+            <br>
+            <hr>
+            <!-- ===================================================================== -->
+
+            <!-- Expérience -->
+
+            <h2 class="title">Expérience</h2>
+
+            <div class="form-group">
+                <div class="form-group-input">
+                    <label for="{{ form.exp_post_title.id_for_label }}">{{ form.exp_post_title.label }}</label>
+                    {{ form.exp_post_title }}
+                </div>
+                <div class="form-group-input">
+                    <label for="{{ form.exp_employee.id_for_label }}">{{ form.exp_employee.label }}</label>
+                    {{ form.exp_employee }}
+                </div>
+            </div><!-- Poste and Employée -->
+
+            <div class="form-group">
+                <div class="form-group-input date-container">
+                    <label for="{{ form.exp_start_date.id_for_label }}">{{ form.exp_start_date.label }}</label>
+                    <div class="date">
+                        <div>{{ form.exp_start_date }}</div>
+                        <div>{{ form.exp_end_date }}</div>
+                    </div>
+                </div>
+                <div class="form-group-input">
+                    <label for="{{ form.exp_ville.id_for_label }}">{{ form.exp_ville.label }}</label>
+                    {{ form.exp_ville }}
+                </div>
+            </div><!-- Exp Date and Ville -->
+
+            <div class="form-group">
+                <label for="{{ form.exp_description.id_for_label }}">{{ form.exp_description.label }}</label>
+                {{ form.exp_description }}
+            </div><!-- Exp Description -->
+            <hr>
+            <!-- ===================================================================== -->
+
+            <button type="submit" class="btn primary-btn submit-btn">Generate CV</button>
+
+        </form>
+    </div>
+
+    <script src="{% static 'resumes/js/jQuery-3.7.1.js' %}"></script>
+    <script src="{% static 'resumes/js/main.js' %}"></script>
+</body>
+</html>

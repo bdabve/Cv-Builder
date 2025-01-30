@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <meta charset="UTF-8">
+  <title>CV {{ data.first_name }} {{ data.last_name }}</title>
+  <link rel="stylesheet" href="{% static 'resumes/css/simple.css'%}">
+
+  <header>
+      {% if data.profile_image_url %}
+          <img src="file://{{ data.profile_image_url }}" alt="Profile Image">
+      {% endif %}
+      <div class="name-job">
+          <h1 id="title">{{ data.first_name }} {{ data.last_name }}</h1>
+          <h2 id="job">{{ data.poste }}</h2>
+      </div>
+  </header>
+
+  <div id="container">
+      <section id="right">
+          <div id="profile">
+              <h2><span class="icon">👤</span> Profile</h2>
+              <p>{{ data.profile }}</p>
+          </div><!-- end of profile -->
+
+          <div id="formation">
+              <h2><span class="icon">🎓</span> Formation</h2>
+              <p class="small-title">{{ data.edu_diplome }}, {{ data.edu_ecole }}, {{ data.edu_ville }}</p>
+              <p class="date">{{ data.edu_start_date }} - {{ data.edu_end_date }}</p>
+              <p>{{ data.edu_description }}</p>
+          </div><!-- formation -->
+
+          <div id="experience">
+              <h2>💼 Experience</h2>
+              <p class="small-title">{{ data.exp_post_title }}, {{ data.exp_employee }}</h3>
+              <p class="date">{{ data.exp_start_date }} - {{ data.exp_end_date }}</p>
+              <p>{{ data.exp_description }}</p>
+          </div><!-- end of experience -->
+      </section><!-- end of right div -->
+
+      <section id="left">
+          <div id="contact">
+              <h2>Contact</h2>
+              {% if data.d_naissance %}
+                  <p>📅 D.Naissance: {{ data.d_naissance}}</p>
+              {% endif %}
+
+              <p>📍🗺️ {{ data.address|default:"" }}<br>{{ data.ville }}, {{ data.code_postal|default:"" }}<br>{{ data.paye }}</p>
+              <p class="link">✉️  {{ data.email }}</p>
+              <p>📞 {{ data.phone }}</p>
+
+              <p>{{ data.permis|default:"" }}</p>
+              <p>💍 {{ data.sit_family|default:"" }}</p>
+              <!--<p>🤝 Disponible</p>-->
+          </div><!-- Contact -->
+
+          <div id="lien">
+              <h2>Lien</h2>
+              {% for link in data.links %}
+              <p>
+                  <p class="link-name">{{ link.name|default:"" }}</p>
+                  <p class="link-url">{{ link.url|default:"" }}</p>
+              </p>
+              {% endfor %}
+          </div>
+
+          <div id="competence">
+            <h2>Competence</h2>
+            <ul>
+                {% for skill in data.skills %}
+                    <li>{{ skill.skill }}: {{ skill.niveau }}</li>
+                {% endfor %}
+            </ul>
+          </div><!-- end of competence -->
+
+          <div id="langue">
+              <h2>Langues</h2>
+              <div class="languages">
+                  {% for lang in data.languages %}
+                      <div class="language">
+                          <p>{{ lang.language }}</p>
+                          <p>{{ lang.proficiency }}</p>
+                      </div>
+                  {% endfor %}
+              </div>
+          </div><!-- Language -->
+      </section><!-- end of left div -->
+  </div><!-- end of container -->
+</html>

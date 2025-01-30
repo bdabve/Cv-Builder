@@ -1,0 +1,98 @@
+@page {
+  font-family: Monaco;
+  margin: 1cm;
+  /*@bottom-left {*/
+    /*color: #1ee494;*/
+    /*content: '♥ Thank you!';*/
+  /*}*/
+  /*@bottom-right {*/
+    /*color: #a9a;*/
+    /*content: 'contact@courtbouillon.org | courtbouillon.org';*/
+    /*font-size: 9pt;*/
+  /*}*/
+}
+
+html {
+  font-family: Monaco;
+  font-size: 9pt;
+  line-height: 1.6;
+}
+
+body {
+  margin: 0;
+}
+
+#container {
+    display: flex;
+}
+
+#left {
+  background-color: #e9eaee;
+  color: #464647;
+}
+
+h2 {
+  color: #007d89;
+  font-size: 10pt;
+  font-weight: bold;
+}
+
+#left {
+  padding: 5.5mm;
+  width: 6cm;
+}
+
+#left img {
+  width: 200px;
+  border-radius: 50%;
+  border: 4px solid #007d89;
+}
+
+#left h2 {
+  border-bottom: .2mm solid #a9a;
+}
+
+#left p {
+  color: #333334;
+}
+
+dt, dd {
+    display: inline;
+}
+
+dt {
+  color: #a9a;
+}
+dt::before {
+  content: '';
+  display: block;
+}
+dt::after {
+  content: ':';
+}
+
+#right {
+  flex: 1;
+  padding-left: 1em;
+  font-size: 9pt;
+}
+
+#title {
+  font-size: 30pt;
+  font-weight: bold;
+  color: #007d89;
+  margin: .2mm 0;
+}
+
+#job {
+  color: #000;
+  font-weight: bold;
+  font-size: 20pt;
+  margin: .2mm 0;
+}
+
+ul {
+  font-size: 9pt;
+  padding: 0 2em;
+  list-style: circle;
+}
