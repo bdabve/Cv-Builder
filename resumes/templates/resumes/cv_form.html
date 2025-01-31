@@ -2,12 +2,20 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="{% static "resumes/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "resumes/css/bootstrap-icons.min.css" %}">
     <link rel="stylesheet" href="{% static 'resumes/css/form_style.css' %}">
     <title>Create CV</title>
 </head>
 <body>
     <div id="container">
-        <h1>Create Your CV</h1>
+        
+        <div class="card w-50 m-auto">
+            <div class="card-header">
+                <h1>Create Your CV</h1>
+            </div>
+
+            <div class="card-body">
         <form id="form" method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
@@ -22,233 +30,396 @@
                 </div>
             {% endif %}
 
-            <!-- Information -->
-            <div class="form-group">
-                <div class="form-group-input">
-                    <label for="{{ form.poste.id_for_label }}">{{ form.poste.label }}</label>
-                    {{ form.poste }}
-                </div>
-                <div class="form-group-input">
-                    <label for="{{ form.profile_image.id_for_label }}">{{ form.profile_image.label }}</label>
-                    {{ form.profile_image }}
-                </div>
-            </div> <!-- Poste and Image profile -->
+            <!-- ===================== Accordion de merde ================================================ -->
+            <div class="accordion" id="accordionExample">
 
-            <div class="form-group">
-                <div class="form-group-input">
-                    <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
-                    {{ form.first_name }}
-                </div>
-                <div class="form-group-input">
-                    <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
-                    {{ form.last_name }}
-                </div>
-            </div><!-- First and Last Name -->
+                <!-- mainInformation -->
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="information">
+                    <button class="accordion-button fs-5" 
+                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseInfo" 
+                            aria-expanded="true" aria-controls="collapseOne">
+                        <i class="bi bi-person-lines-fill"></i>&nbsp;&nbsp; Information
+                  </button>
+                </h2>
 
-            <div class="form-group">
-                <div class="form-group-input">
-                    <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
-                    {{ form.email }}
-                </div>
-                <div class="form-group-input">
-                    <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
-                    {{ form.phone }}
-                </div>
-            </div> <!-- Email and Phone -->
+                <div id="collapseInfo" class="accordion-collapse collapse show" 
+                    aria-labelledby="information" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
 
-            <div class="form-group">
-                <div class="form-group-input">
-                    <label for="{{ form.address.id_for_label }}">{{ form.address.label }}</label>
-                    {{ form.address }}
-                </div>
-                <div class="form-group-input">
-                    <label for="{{ form.ville.id_for_label }}">{{ form.ville.label }}</label>
-                    {{ form.ville }}
-                </div>
-            </div><!-- Address and Ville -->
+                      <!-- Info Container -->
+                      <div id="info-container">
+                        <div class="row align-items-start mb-3">
+                            <div class="col">
+                                <label class="form-label" for="{{ form.poste.id_for_label }}">{{ form.poste.label }}</label>
+                                {{ form.poste }}
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for="{{ form.profile_image.id_for_label }}">
+                                    {{ form.profile_image.label }}
+                                </label>
+                                {{ form.profile_image }}
+                            </div>
+                        </div><!-- Poste and Profile image -->
 
-            <div class="form-group">
-                <div class="form-group-input">
-                    <label for="{{ form.code_postal.id_for_label }}">{{ form.code_postal.label }}</label>
-                    {{ form.code_postal }}
-                </div>
-                <div class="form-group-input">
-                    <label for="{{ form.paye.id_for_label }}">{{ form.paye.label }}</label>
-                    {{ form.paye }}
-                </div>
-            </div><!-- CodePostal and Paye-->
+                        <div class="row align-items-start mb-3">
+                            <div class="col">
+                                <label class="form-label" for="{{ form.first_name.id_for_label }}">
+                                    {{ form.first_name.label }}
+                                </label>
+                                {{ form.first_name }}
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for="{{ form.last_name.id_for_label }}">
+                                    {{ form.last_name.label }}
+                                </label>
+                                {{ form.last_name }}
+                            </div>
+                        </div><!-- First-name and Last-name -->
 
-            <div class="form-group">
-                <div class="form-group-input">
-                    <label for="{{ form.sit_family.id_for_label }}">{{ form.sit_family.label }}</label>
-                    {{ form.sit_family }}
-                </div>
-                <div class="form-group-input">
-                    <label for="{{ form.permis.id_for_label }}">{{ form.permis.label }}</label>
-                    {{ form.permis }}
-                </div>
-            </div><!-- Situation Familiale and Permis -->
+                        <div class="row align-items-start mb-3">
+                            <div class="col">
+                                <label class="form-label" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                                {{ form.email }}
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+                                {{ form.phone }}
+                            </div>
+                        </div> <!-- Email and Phone -->
 
-            <div class="form-group">
-                <div class="form-group-input">
-                    <label for="{{ form.d_naissance.id_for_label }}">{{ form.d_naissance.label }}</label>
-                    {{ form.d_naissance }}
-                </div>
-            </div><!-- D.Naissance and Permis -->
+                        <div class="row align-items-start mb-3">
+                            <div class="col">
+                                <label class="form-label" for="{{ form.address.id_for_label }}">{{ form.address.label }}</label>
+                                {{ form.address }}
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for="{{ form.ville.id_for_label }}">{{ form.ville.label }}</label>
+                                {{ form.ville }}
+                            </div>
+                        </div><!-- Address and Ville -->
 
-            <div class="form-group">
-                <label for="{{ form.profile.id_for_label }}">{{ form.profile.label }}</label>
-                {{ form.profile }}
-            </div><!-- Profile -->
+                        <div class="row align-items-start mb-3">
+                            <div class="col">
+                                <label class="form-label" for="{{ form.code_postal.id_for_label }}">
+                                    {{ form.code_postal.label }}
+                                </label>
+                                {{ form.code_postal }}
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for="{{ form.paye.id_for_label }}">{{ form.paye.label }}</label>
+                                {{ form.paye }}
+                            </div>
+                        </div><!-- CodePostal and Paye-->
 
-            <hr>
+                        <div class="row align-items-start mb-3">
+                            <div class="col">
+                                <label class="form-label" for="{{ form.sit_family.id_for_label }}">
+                                    {{ form.sit_family.label }}
+                                </label>
+                                {{ form.sit_family }}
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for="{{ form.permis.id_for_label }}">{{ form.permis.label }}</label>
+                                {{ form.permis }}
+                            </div>
+                        </div><!-- Situation Familiale and Permis -->
+
+                        <div class="row align-items-start mb-3">
+                            <div class="col">
+                                <label class="form-label" for="{{ form.d_naissance.id_for_label }}">
+                                    {{ form.d_naissance.label }}
+                                </label>
+                                {{ form.d_naissance }}
+                            </div>
+                            <div class="col"></div>
+                        </div><!-- D.Naissance -->
+
+                        <div class="row align-items-start mb-3">
+                            <div class="col">
+                                <label class="form-label" for="{{ form.profile.id_for_label }}">{{ form.profile.label }}</label>
+                                {{ form.profile }}
+                            </div>
+                        </div><!-- Profile -->
+
+                      </div><!-- profile container -->
+                  </div><!-- accordion body -->
+
+                </div><!-- collapse -->
+              </div><!-- end item -->
+
+              <!-- ===================================================================== -->
+
+              <!-- Education -->
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="education">
+                    <button class="accordion-button fs-5" 
+                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseEducation" 
+                            aria-expanded="false" aria-controls="collapseEducation">
+                        <i class="bi bi-mortarboard-fill"></i>&nbsp;&nbsp; Education
+                  </button>
+                </h2>
+
+                <div id="collapseEducation" class="accordion-collapse collapse" 
+                    aria-labelledby="education" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+
+                    <!-- Education Container -->
+                    <div id="education-container">
+                        <div class="row mb-3 form-group">
+                            <div class="col">
+                                <label class="form-label" for="{{ form.edu_ecole.id_for_label }}">
+                                    {{ form.edu_ecole.label }}
+                                </label>
+                                {{ form.edu_ecole }}
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for="{{ form.edu_diplome.id_for_label }}">
+                                    {{ form.edu_diplome.label }}
+                                </label>
+                                {{ form.edu_diplome }}
+                            </div>
+                        </div><!-- Ecole and Diplome -->
+
+                        <div class="row mb-3 form-group">
+                            <div class="col">
+                                <label class="form-label" for="{{ form.edu_start_date.id_for_label }}">
+                                    {{ form.edu_start_date.label }} - {{ form.edu_end_date.label }}
+                                </label>
+                                <div class="d-flex justify-content-between">
+                                    <div>{{ form.edu_start_date }}</div>
+                                    <div>{{ form.edu_end_date }}</div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for="{{ form.edu_ville.id_for_label }}">
+                                    {{ form.edu_ville.label }}
+                                </label>
+                                {{ form.edu_ville }}
+                                <datalist id="detailsVille">
+                                    <option value="Bou-Ismail"></option>
+                                    <option value="New York"></option>
+                                    <option value="Oran"></option>
+                                    <option value="Skikda"></option>
+                                </datalist>
+                            </div>
+                        </div><!-- Date and Ville -->
+
+                        <div class="row mb-3 form-group">
+                            <div class="col">
+                                <label class="form-label" for="{{ form.edu_description.id_for_label }}">
+                                    {{ form.edu_description.label }}
+                                </label>
+                                {{ form.edu_description }}
+                            </div>
+                        </div><!-- Description -->
+
+                    </div><!-- End of Education Container -->
+                  </div><!-- accordion body -->
+
+                </div><!-- collapse -->
+              </div><!-- end item -->
+
+              <!-- ===================================================================== -->
+
+              <!-- Languages -->
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="languages">
+                    <button class="accordion-button fs-5" 
+                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseLang" 
+                            aria-expanded="true" aria-controls="collapseOne">
+                      
+                        <i class="bi bi-translate"></i>&nbsp;&nbsp; Languages
+                  </button>
+                </h2>
+
+                <div id="collapseLang" class="accordion-collapse collapse" 
+                    aria-labelledby="languages" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+
+                    <div id="languages-container" class="">
+                        <div class="row mb-3 content-div">
+                            <div class="col">
+                                <input type="text" name="languages_0" placeholder="Enter a language" class="form-control">
+                            </div>
+
+                            <div class="col d-flex justify-content-between">
+                                <select id="" name="proficiency_0" class="form-select">
+                                    <option selected>Profeciency</option>
+                                    <option value="1" selected>Beginner</option>
+                                    <option value="2">Intermediate</option>
+                                    <option value="3">Fluent</option>
+                                    <option value="4">Maternal</option>
+                                </select>
+                                <button type="button" class="btn remove-btn btn-danger ms-2">Remove</button>
+                            </div>
+                        </div>  
+                    </div><!-- end of langugage container -->
+                    <button id="add-language-btn" type="button" class="btn btn-primary">+ Add Language</button>
+
+                  </div><!-- accordion body -->
+
+                </div><!-- collapse -->
+              </div><!-- end item -->
+            
+              <!-- ===================================================================== -->
+              <!-- Links -->
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="Links">
+                    <button class="accordion-button collapsed fs-5" 
+                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseLinks" 
+                            aria-expanded="false" aria-controls="collapseTwo">
+                        <i class="bi bi-browser-chrome"></i>&nbsp;&nbsp; Links
+                    </button>
+                </h2>
+                
+                <div id="collapseLinks" class="accordion-collapse collapse" 
+                    aria-labelledby="Links" data-bs-parent="#accordionExample">
+                  
+                    <div class="accordion-body">
+                      <div id="links-container">
+                          <div class="row mb-3 content-div">
+                              <div class="col">
+                                  <input type="text" name="link_name_0" 
+                                         placeholder="Enter link name (e.g., YouTube)" class="form-control">
+                              </div>
+                              <div class="col d-flex justify-content-between">
+                                  <input type="url" name="link_url_0" placeholder="Enter link URL" class="form-control">
+                                  <button type="button" class="btn btn-danger ms-2 remove-btn">Remove</button>
+                              </div>
+                          </div>
+                      </div><!-- end of links-container -->
+                      <button id="add-link-btn" type="button" class="btn btn-primary">+ Add Link</button>
+
+                    </div><!-- Accordion Body -->
+                </div><!-- ID To Collapse -->
+              </div><!-- End of accordion item -->
+
+              <!-- ===================================================================== -->
+
+              <!-- Skills -->
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="skills">
+                    <button class="accordion-button collapsed fs-5" 
+                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseSkills" 
+                            aria-expanded="false" aria-controls="collapseTwo">
+
+                        <i class="bi bi-list-check"></i>&nbsp;&nbsp; Skills
+                    </button>
+                </h2>
+                
+                <div id="collapseSkills" class="accordion-collapse collapse" 
+                    aria-labelledby="skills" data-bs-parent="#accordionExample">
+                  
+                    <div class="accordion-body">
+                        <div id="skills-container">
+
+                            <div id="common-skills" class="common-skills">
+                            </div>
+
+                            <div class="row mb-3 content-div">
+                                <div class="col form-group-input">
+                                    <input type="text" name="skills_0" placeholder="Enter a skill" class="form-control">
+                                </div>
+                                <div class="col d-flex justify-content-between">
+                                    <select id="" name="niveau_0" class="form-select">
+                                        <option value="Beginner">Beginner</option>
+                                        <option value="Intermediate">Intermediate</option>
+                                        <option value="Advanced">Advanced</option>
+                                    </select>
+                                    <button type="button" class="btn btn-outline-danger btn-sm remove-btn ms-1">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </button>
+                                </div>
+                            </div>  
+                        </div><!-- skills container -->
+                        <button id="add-skill-btn" type="button" class="btn btn-primary">
+                            <i class="bi bi-plus-square-dotted"></i> Add Skill
+                        </button>
+                    </div><!-- Accordion Body -->
+
+                </div><!-- ID To Collapse -->
+              </div><!-- End of accordion item -->
+
+              <!-- ===================================================================== -->
+
+              <!-- Expérience -->
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="experience">
+                    <button class="accordion-button collapsed fs-5" 
+                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseExp" 
+                            aria-expanded="false" aria-controls="collapseTwo">
+
+                        <i class="bi bi-briefcase-fill"></i>&nbsp;&nbsp; Expérience
+                    </button>
+                </h2>
+                
+                <div id="collapseExp" class="accordion-collapse collapse" 
+                    aria-labelledby="experience" data-bs-parent="#accordionExample">
+                  
+                    <div class="accordion-body">
+
+                        <div class="experience_container">
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label class="form-label" for="{{ form.exp_post_title.id_for_label }}">
+                                        {{ form.exp_post_title.label }}
+                                    </label>
+                                    {{ form.exp_post_title }}
+                                </div>
+                                <div class="col">
+                                    <label class="form-label" for="{{ form.exp_employee.id_for_label }}">
+                                        {{ form.exp_employee.label }}
+                                    </label>
+                                    {{ form.exp_employee }}
+                                </div>
+                            </div><!-- Poste and Employée -->
+
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label class="form-label" for="{{ form.exp_start_date.id_for_label }}">
+                                        {{ form.exp_start_date.label }}
+                                    </label>
+                                    <div class="d-flex justify-content-between">
+                                        <div>{{ form.exp_start_date }}</div>
+                                        <div>{{ form.exp_end_date }}</div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label class="form-label" for="{{ form.exp_ville.id_for_label }}">
+                                        {{ form.exp_ville.label }}
+                                    </label>
+                                    {{ form.exp_ville }}
+                                </div>
+                            </div><!-- Exp Date and Ville -->
+
+                            <div class="form-group">
+                                <label class="form-label" for="{{ form.exp_description.id_for_label }}">
+                                    {{ form.exp_description.label }}
+                                </label>
+                                {{ form.exp_description }}
+                            </div><!-- Exp Description -->
+                        </div>
+
+                    </div><!-- Accordion Body -->
+
+                </div><!-- ID To Collapse -->
+              </div><!-- End of accordion item -->
+            </div><!-- end of accordion -->
             <!-- ===================================================================== -->
 
-            <!-- Links -->
-            <h2 class="title">Links</h2>
-            <div id="links-container">
-                <div class="form-group">
-                    <div class="form-group-input">
-                        <input type="text" name="link_name_0" placeholder="Enter link name (e.g., YouTube)" class="form-control">
-                    </div>
-                    <div class="form-group-input">
-                        <input type="url" name="link_url_0" placeholder="Enter link URL" class="form-control">
-                        <button type="button" class="btn remove-btn link-remove-btn">Remove</button>
-                    </div>
-                </div>
-            </div>  
-            <button id="add-link-btn" type="button" class="btn primary-btn">+ Add Link</button>
-            <hr>
-            <!-- ===================================================================== -->
-
-            <!-- Languages -->
-            <h2 class="title">Languages</h2>
-            <div id="languages-container">
-                <div class="form-group">
-                    <div class="form-group-input">
-                        <input type="text" name="languages_0" placeholder="Enter a language" class="form-control">
-                    </div>
-                    <div class="form-group-input">
-                        <select id="" name="proficiency_0">
-                            <option value="1" selected>Beginner</option>
-                            <option value="2">Intermediate</option>
-                            <option value="3">Fluent</option>
-                            <option value="4">Maternal</option>
-                        </select>
-                        <button type="button" class="btn remove-btn language-remove-btn">Remove</button>
-                    </div>
-                </div>  
-            </div>
-            <button id="add-language-btn" type="button" class="btn primary-btn">+ Add Language</button>
-            <br>
-            <hr>
-            <!-- ===================================================================== -->
-
-            <!-- Education -->
-            <h2 class="title">Education</h2>
-
-            <div class="form-group">
-                <div class="form-group-input">
-                    <label for="{{ form.edu_ecole.id_for_label }}">{{ form.edu_ecole.label }}</label>
-                    {{ form.edu_ecole }}
-                </div>
-                <div class="form-group-input">
-                    <label for="{{ form.edu_diplome.id_for_label }}">{{ form.edu_diplome.label }}</label>
-                    {{ form.edu_diplome }}
-                </div>
-            </div><!-- Ecole and Diplome -->
-
-            <div class="form-group">
-                <div class="form-group-input date-container">
-                    <label for="{{ form.edu_start_date.id_for_label }}">{{ form.edu_start_date.label }}</label>
-                    <div class="date">
-                        <div>{{ form.edu_start_date }}</div>
-                        <div>{{ form.edu_end_date }}</div>
-                    </div>
-                </div>
-                <div class="form-group-input">
-                    <label for="{{ form.edu_ville.id_for_label }}">{{ form.edu_ville.label }}</label>
-                    {{ form.edu_ville }}
-                </div>
-            </div><!-- Date and Ville -->
-
-            <div class="form-group">
-                <label for="{{ form.edu_description.id_for_label }}">{{ form.edu_description.label }}</label>
-                {{ form.edu_description }}
-            </div><!-- Description -->
-            <hr>
-
-            <!-- ===================================================================== -->
-
-            <!-- Skills -->
-
-            <h2 class="title">Compétences</h2>
-            <div id="skills-container">
-
-                <div id="common-skills" class="common-skills">
-                </div>
-
-                <div class="form-group">
-                    <div class="form-group-input">
-                        <input type="text" name="skills_0" placeholder="Enter a skill" class="form-control">
-                    </div>
-                    <div class="form-group-input">
-                        <select id="" name="niveau_0" class="">
-                            <option value="Beginner">Beginner</option>
-                            <option value="Intermediate">Intermediate</option>
-                            <option value="Advanced">Advanced</option>
-                        </select>
-                        <button type="button" class="btn remove-btn skill-remove-btn">Remove</button>
-                    </div>
-                </div>  
-            </div>
-            <button id="add-skill-btn" type="button" class="btn primary-btn">+ Add Skill</button>
-            <br>
-            <hr>
-            <!-- ===================================================================== -->
-
-            <!-- Expérience -->
-
-            <h2 class="title">Expérience</h2>
-
-            <div class="form-group">
-                <div class="form-group-input">
-                    <label for="{{ form.exp_post_title.id_for_label }}">{{ form.exp_post_title.label }}</label>
-                    {{ form.exp_post_title }}
-                </div>
-                <div class="form-group-input">
-                    <label for="{{ form.exp_employee.id_for_label }}">{{ form.exp_employee.label }}</label>
-                    {{ form.exp_employee }}
-                </div>
-            </div><!-- Poste and Employée -->
-
-            <div class="form-group">
-                <div class="form-group-input date-container">
-                    <label for="{{ form.exp_start_date.id_for_label }}">{{ form.exp_start_date.label }}</label>
-                    <div class="date">
-                        <div>{{ form.exp_start_date }}</div>
-                        <div>{{ form.exp_end_date }}</div>
-                    </div>
-                </div>
-                <div class="form-group-input">
-                    <label for="{{ form.exp_ville.id_for_label }}">{{ form.exp_ville.label }}</label>
-                    {{ form.exp_ville }}
-                </div>
-            </div><!-- Exp Date and Ville -->
-
-            <div class="form-group">
-                <label for="{{ form.exp_description.id_for_label }}">{{ form.exp_description.label }}</label>
-                {{ form.exp_description }}
-            </div><!-- Exp Description -->
-            <hr>
-            <!-- ===================================================================== -->
-
-            <button type="submit" class="btn primary-btn submit-btn">Generate CV</button>
+            <button type="submit" class="mt-3 btn btn-primary submit-btn">Generate CV</button>
 
         </form>
+            </div><!--end of card-body -->
+            <div class="card-footer text-muted">
+                2 Days Ago
+            </div>
+        </div><!-- end of card -->
     </div>
 
-    <script src="{% static 'resumes/js/jQuery-3.7.1.js' %}"></script>
-    <script src="{% static 'resumes/js/main.js' %}"></script>
+    <script src='{% static "resumes/js/jQuery-3.7.1.js" %}'></script>
+    <script src='{% static "resumes/js/bootstrap.bundle.min.js" %}'></script>
+    <script src='{% static "resumes/js/main.js" %}'></script>
 </body>
 </html>

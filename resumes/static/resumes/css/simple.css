@@ -37,7 +37,7 @@ header .name-job {
 }
 
 h1, h2 {
-    font-family: 'TT Condensed Italic';
+    font-family: 'Monaco';
 }
 
 header h1 {
@@ -138,8 +138,4 @@ ul li::before {
 
 #formation p {
     margin: .5mm 0;
-}
-
-.icon {
-    color: #000000;
 }
