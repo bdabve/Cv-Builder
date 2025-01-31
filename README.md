@@ -15,6 +15,6 @@
 - **Bootstrap** – لتصميم أنيق ومتجاوب.  
 - **WeasyPrint** – لإنشاء ملفات PDF بجودة عالية من قوالب HTML.  
 
-- **Gmail:** [bdabve@gmail.com](bdabve@gmail.com)  
-- **YouTube Video:** [https://www.youtube.com/watch?v=Mx_mFmP12P0](https://www.youtube.com/watch?v=Mx_mFmP12P0)
+- **Gmail:** [bdabve@gmail.com](mailto:bdabve@gmail.com)
+
 📌 **هذا المشروع يساعد في إنشاء سير ذاتية احترافية بسهولة وسرعة!** 🚀
