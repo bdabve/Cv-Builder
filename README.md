@@ -5,11 +5,11 @@ This project integrates **AI** to suggest **profiles** and **skills** based on u
 
 ## 🚀 Features
 
-✅ Generate professional CVs in **PDF format** using WeasyPrint
-✅ **AI-powered** profile and skills suggestion
-✅ User-friendly interface for inputting **personal details, experiences, and skills**
-✅ Supports **image uploads** for profile pictures
-✅ Responsive design for desktop and mobile using Bootstrap5 and Bootstrap Icons
+- ✅ Generate professional CVs in **PDF format** using WeasyPrint
+- ✅ **AI-powered** profile and skills suggestion
+- ✅ User-friendly interface for inputting **personal details, experiences, and skills**
+- ✅ Supports **image uploads** for profile pictures
+- ✅ Responsive design for desktop and mobile using Bootstrap5 and Bootstrap Icons
 
 ## 🛠️ Technologies Used
 
