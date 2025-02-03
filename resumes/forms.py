@@ -7,7 +7,11 @@ class CVForm(forms.Form):
         max_length=200,
         label="Titre du Poste"
     )
-    profile_image = forms.ImageField(label="Profile Image", required=False)
+    profile_image = forms.ImageField(
+        widget=forms.ClearableFileInput(attrs={"class": "form-control"}),
+        label="Profile Image",
+        required=False
+    )
 
     # ---- First, Last name
     first_name = forms.CharField(
@@ -118,39 +122,39 @@ class CVForm(forms.Form):
     )
     # ---------------------------------------------------------------------
     # Experience fields
-    exp_post_title = forms.CharField(
-        widget=forms.TextInput(attrs={'placeholder': 'Poste Title', "class": "form-control"}),
-        max_length=200,
-        label="Titre du post"
-    )
-    exp_employee = forms.CharField(
-        widget=forms.TextInput(attrs={'placeholder': 'Employee', "class": "form-control"}),
-        max_length=200,
-        label="Employer"
-    )
-    exp_start_date = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date', "class": "form-control"}),
-        label="Start Date",
-        required=False
-    )
-    exp_end_date = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date', "class": "form-control"}),
-        label="End Date",
-        required=False
-    )
+    # exp_post_title = forms.CharField(
+        # widget=forms.TextInput(attrs={'placeholder': 'Poste Title', "class": "form-control"}),
+        # max_length=200,
+        # label="Titre du post"
+    # )
+    # exp_employee = forms.CharField(
+        # widget=forms.TextInput(attrs={'placeholder': 'Employee', "class": "form-control"}),
+        # max_length=200,
+        # label="Employer"
+    # )
+    # exp_start_date = forms.DateField(
+        # widget=forms.DateInput(attrs={'type': 'date', "class": "form-control"}),
+        # label="Start Date",
+        # required=False
+    # )
+    # exp_end_date = forms.DateField(
+        # widget=forms.DateInput(attrs={'type': 'date', "class": "form-control"}),
+        # label="End Date",
+        # required=False
+    # )
 
-    exp_ville = forms.CharField(
-        widget=forms.TextInput(attrs={'placeholder': 'Ville', "class": "form-control"}),
-        max_length=200,
-        label="Ville",
-        required=False
-    )
-    exp_description = forms.CharField(
-        widget=forms.Textarea(attrs={
-            "placeholder": "Inclure 2 ou 3 phrases claires au sujet de votre expérience globale.",
-            "rows": 5,
-            "class": "form-control"
-        }),
-        label="Description",
-        required=False,
-    )
+    # exp_ville = forms.CharField(
+        # widget=forms.TextInput(attrs={'placeholder': 'Ville', "class": "form-control"}),
+        # max_length=200,
+        # label="Ville",
+        # required=False
+    # )
+    # exp_description = forms.CharField(
+        # widget=forms.Textarea(attrs={
+            # "placeholder": "Inclure 2 ou 3 phrases claires au sujet de votre expérience globale.",
+            # "rows": 5,
+            # "class": "form-control"
+        # }),
+        # label="Description",
+        # required=False,
+    # )

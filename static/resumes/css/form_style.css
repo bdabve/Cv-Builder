@@ -1,52 +1,23 @@
 @font-face {
-    font-family: 'TTS Condensed';
+    font-family: 'condensed';
     src: url('/static/fonts/TT Commons Pro Trial Condensed Medium.ttf');
 }
 
 @font-face {
-    font-family: 'TTS Condensed Italic';
+    font-family: 'condensed-italic';
     src:url('/static/fonts/TT Commons Pro Trial Condensed Medium Italic.ttf')
 }
 
 
 body {
-    font-family: "TTS Condensed";
-    margin: 20px;
-    padding: 0;
-    color: #333;
+    font-family: "condensed";
 }
 
 h1 {
-    font-family: 'TTS Condensed Italic';
-    text-align: center;
-    color: #0056b3;
+    font-family: 'condensed-italic';
 }
-
-.title {
-    /* h2 */
-    font-family: "TTS Condensed Italic";
-    font-size: 23px;
-    line-height: 28px;
-    position: relative;
-    -moz-box-align: center;
-    align-items: center;
-    min-width: 0px;
-    height: 28px;
-    font-weight: 600;
-    color: #53648a;
-}
-
 
 /* **************************************************************** */
-
-form {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-}
 
 .common-skills {
     position: relative;
@@ -76,90 +47,37 @@ form {
     color: rgb(26, 145, 240);
 }
 
-.form-group {
-    margin-bottom: 13px;
-    display: flex;
-    flex-flow: wrap;
-}
+/*.date-container {*/
+    /*margin-right: 28px;*/
+/*}*/
 
-.form-group-input {
-    flex: 0 0 calc(50% - 20px);
-    margin-right: 40px;
-}
+/*.date {*/
+    /*display: flex;*/
+    /*justify-content: space-between;*/
+/*}*/
 
-.form-group-input:last-child {
-    margin-right: 0px;
-    margin-bottom: 0px;
-}
+/*.date input {*/
+    /*width: 80%;*/
+    /*margin-right: 0;*/
+/*}*/
 
-.date-container {
-    margin-right: 28px;
-}
-
-.date {
-    display: flex;
-    justify-content: space-between;
-}
-
-.date input {
-    width: 80%;
-    margin-right: 0;
-}
-
-#languages-container .form-group-input, 
-#skills-container .form-group-input,
-#links-container .form-group-input {
-    display: flex; 
-}
+/*#languages-container .form-group-input, */
+/*#skills-container .form-group-input,*/
+/*#links-container .form-group-input {*/
+    /*display: flex; */
+/*}*/
 
 /* **************************************************************** */
 
-hr {
-    background-color: #ccc;
-    height: 3px;
-    border: none;
-}
-
 label {
-    display: block;
-    margin-bottom: 5px;
-    color: #53648a;
-    font-size: 15px;
-}
-
-input, textarea, select {
-    width: 95%;
-    padding: 10px;
-    /*border: none;*/
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    background: #ffffff;
-}
-
-button.btn {
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button.primary-btn {
-    background-color: #0056b3;
-}
-
-.remove-btn {
-    background-color: #d94242;
-    margin-left: 7px;
-}
-
-button.btn:hover {
-    background-color: #003d80;
+    font-family: 'condensed-italic';
 }
 
 .errors ul {
     list-style: none;
     padding: 5px;
+}
+
+.form-control {
+    font-size: 1.1rem;
 }

@@ -10,7 +10,7 @@
 <body>
     <div id="container">
         
-        <div class="card w-50 m-auto">
+        <div class="card m-auto" style="width: 50rem;">
             <div class="card-header">
                 <h1>Create Your CV</h1>
             </div>
@@ -62,6 +62,8 @@
                             </div>
                         </div><!-- Poste and Profile image -->
 
+                        <hr>
+                        
                         <div class="row align-items-start mb-3">
                             <div class="col">
                                 <label class="form-label" for="{{ form.first_name.id_for_label }}">
@@ -88,6 +90,8 @@
                             </div>
                         </div> <!-- Email and Phone -->
 
+                        <hr>
+                        
                         <div class="row align-items-start mb-3">
                             <div class="col">
                                 <label class="form-label" for="{{ form.address.id_for_label }}">{{ form.address.label }}</label>
@@ -112,19 +116,8 @@
                             </div>
                         </div><!-- CodePostal and Paye-->
 
-                        <div class="row align-items-start mb-3">
-                            <div class="col">
-                                <label class="form-label" for="{{ form.sit_family.id_for_label }}">
-                                    {{ form.sit_family.label }}
-                                </label>
-                                {{ form.sit_family }}
-                            </div>
-                            <div class="col">
-                                <label class="form-label" for="{{ form.permis.id_for_label }}">{{ form.permis.label }}</label>
-                                {{ form.permis }}
-                            </div>
-                        </div><!-- Situation Familiale and Permis -->
-
+                        <hr>
+                        
                         <div class="row align-items-start mb-3">
                             <div class="col">
                                 <label class="form-label" for="{{ form.d_naissance.id_for_label }}">
@@ -132,12 +125,35 @@
                                 </label>
                                 {{ form.d_naissance }}
                             </div>
-                            <div class="col"></div>
+                            <div class="col">
+                                <label class="form-label" for="{{ form.sit_family.id_for_label }}">
+                                    {{ form.sit_family.label }}
+                                </label>
+                                {{ form.sit_family }}
+                            </div>
                         </div><!-- D.Naissance -->
 
                         <div class="row align-items-start mb-3">
                             <div class="col">
-                                <label class="form-label" for="{{ form.profile.id_for_label }}">{{ form.profile.label }}</label>
+                                <label class="form-label" for="{{ form.permis.id_for_label }}">{{ form.permis.label }}</label>
+                                {{ form.permis }}
+                            </div>
+                            <div class="col"></div>
+                        </div><!-- Situation Familiale and Permis -->
+
+                        <hr>
+                        
+                        <div class="row align-items-start mb-3">
+                            <div class="col">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <label class="form-label" for="{{ form.profile.id_for_label }}">
+                                        {{ form.profile.label }}
+                                    </label>
+                                    <button id="ai-poste-profile" class="btn btn-outline-success btn-sm"
+                                            data-bs-toggle="tooltip" title="Generate Profile With IA" data-bs-placement="right">
+                                        <i class="bi bi-robot"></i> Generate AI profile
+                                    </button>
+                                </div>
                                 {{ form.profile }}
                             </div>
                         </div><!-- Profile -->
@@ -153,7 +169,7 @@
               <!-- Education -->
               <div class="accordion-item">
                 <h2 class="accordion-header" id="education">
-                    <button class="accordion-button fs-5" 
+                    <button class="accordion-button collapsed fs-5" 
                             type="button" data-bs-toggle="collapse" data-bs-target="#collapseEducation" 
                             aria-expanded="false" aria-controls="collapseEducation">
                         <i class="bi bi-mortarboard-fill"></i>&nbsp;&nbsp; Education
@@ -214,6 +230,7 @@
                             </div>
                         </div><!-- Description -->
 
+                        <button class="btn btn-link"><i class="bi bi-plus"></i> Add Education</button>
                     </div><!-- End of Education Container -->
                   </div><!-- accordion body -->
 
@@ -225,7 +242,7 @@
               <!-- Languages -->
               <div class="accordion-item">
                 <h2 class="accordion-header" id="languages">
-                    <button class="accordion-button fs-5" 
+                    <button class="accordion-button collapsed fs-5" 
                             type="button" data-bs-toggle="collapse" data-bs-target="#collapseLang" 
                             aria-expanded="true" aria-controls="collapseOne">
                       
@@ -254,8 +271,9 @@
                                 <button type="button" class="btn remove-btn btn-danger ms-2">Remove</button>
                             </div>
                         </div>  
+
                     </div><!-- end of langugage container -->
-                    <button id="add-language-btn" type="button" class="btn btn-primary">+ Add Language</button>
+                    <button id="add-language-btn" type="button" class="btn btn-link">+ Add Language</button>
 
                   </div><!-- accordion body -->
 
@@ -289,7 +307,7 @@
                               </div>
                           </div>
                       </div><!-- end of links-container -->
-                      <button id="add-link-btn" type="button" class="btn btn-primary">+ Add Link</button>
+                      <button id="add-link-btn" type="button" class="btn btn-link">+ Add Link</button>
 
                     </div><!-- Accordion Body -->
                 </div><!-- ID To Collapse -->
@@ -333,9 +351,15 @@
                                 </div>
                             </div>  
                         </div><!-- skills container -->
-                        <button id="add-skill-btn" type="button" class="btn btn-primary">
-                            <i class="bi bi-plus-square-dotted"></i> Add Skill
-                        </button>
+                        <div class="d-flex justify-content-between">
+                            <button id="add-skill-btn" type="button" class="btn btn-link">
+                                <i class="bi bi-plus"></i> Add Skill
+                            </button>
+
+                            <button id="ai-poste-skills" class="btn btn-outline-success btn-sm">
+                                <i class="bi bi-robot"></i> AI Generate Common Skills
+                            </button>
+                        </div>
                     </div><!-- Accordion Body -->
 
                 </div><!-- ID To Collapse -->
@@ -357,58 +381,120 @@
                 <div id="collapseExp" class="accordion-collapse collapse" 
                     aria-labelledby="experience" data-bs-parent="#accordionExample">
                   
-                    <div class="accordion-body">
+                    <div class="accordion-body clearfix">
+                        <div class="experience-container accordion" id="experience-accordion">
 
-                        <div class="experience_container">
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <label class="form-label" for="{{ form.exp_post_title.id_for_label }}">
-                                        {{ form.exp_post_title.label }}
-                                    </label>
-                                    {{ form.exp_post_title }}
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="{{ form.exp_employee.id_for_label }}">
-                                        {{ form.exp_employee.label }}
-                                    </label>
-                                    {{ form.exp_employee }}
-                                </div>
-                            </div><!-- Poste and Employée -->
+                            <div class="accordion-item"> 
+                                <h2 class="accordion-header" id="exp_head_0">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#exp_0" aria-expanded="true" aria-controles="collapseExp0">
+                                        Expérience #1
+                                    </button>
+                                </h2>
+                                <div id="exp_0" class="accordion-collapse collapse show" aria-labeledby="collapseExp0"
+                                     data-bs-parent="experience-accordion">
+                                    <div class="accordion-body">
 
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <label class="form-label" for="{{ form.exp_start_date.id_for_label }}">
-                                        {{ form.exp_start_date.label }}
-                                    </label>
-                                    <div class="d-flex justify-content-between">
-                                        <div>{{ form.exp_start_date }}</div>
-                                        <div>{{ form.exp_end_date }}</div>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="{{ form.exp_ville.id_for_label }}">
-                                        {{ form.exp_ville.label }}
-                                    </label>
-                                    {{ form.exp_ville }}
-                                </div>
-                            </div><!-- Exp Date and Ville -->
+                                        <p class="lead border-bottom">Expérience #1</p>
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <label class="form-label" for="exp_post_title_1">
+                                                    Poste Title
+                                                </label>
+                                                <input class="form-control" id="exp_post_title_1" 
+                                                       type="text" 
+                                                       name="exp_post_title_1" 
+                                                       placeholder="Poste Title"
+                                                       required="true">
+                                            </div>
+                                            <div class="col">
+                                                <label class="form-label" for="exp_employee_1">Employée</label>
+                                                <input class="form-control" id="exp_employee_1" 
+                                                       type="text" 
+                                                       name="exp_employee_1" 
+                                                       placeholder="Employée"
+                                                       required="True">
+                                            </div>
+                                        </div><!-- Poste and Employée -->
 
-                            <div class="form-group">
-                                <label class="form-label" for="{{ form.exp_description.id_for_label }}">
-                                    {{ form.exp_description.label }}
-                                </label>
-                                {{ form.exp_description }}
-                            </div><!-- Exp Description -->
-                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <label class="form-label" for="exp_start_date_1">Date de début</label>
+                                                <div class="d-flex justify-content-between">
+                                                    <input class="form-control" id="exp_start_date_1" 
+                                                           type="date" 
+                                                           name="exp_start_date_1" 
+                                                           required="true">
+                                                    <input class="form-control" id="exp_end_date_1" 
+                                                           type="date" 
+                                                           name="exp_end_date_1"
+                                                           required="true">
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <label class="form-label" for="exp_ville_1">Ville</label>
+                                                <input class="form-control" id="exp_ville_1" 
+                                                       type="text" 
+                                                       name="exp_ville_1" 
+                                                       placeholder="Ville">
+                                            </div>
+                                        </div><!-- Exp Date and Ville -->
 
-                    </div><!-- Accordion Body -->
+                                        <div class="form-group">
+                                            <div class="d-flex justify-content-between">
+                                                <label class="form-label" for="exp_description_1">Description</label>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" id="exp_as_list_1"
+                                                           type="checkbox" 
+                                                           name="exp_desc_as_list_1"
+                                                           value="1">
+                                                    <label class="form-check-label" for="exp_as_list_1">
+                                                        Display as a list
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <textarea class="form-control" id="exp_description_1"
+                                                      name="exp_description_1" 
+                                                      placeholder="Enter Description for this post"></textarea>
+                                        </div><!-- Exp Description -->
+                                    </div><!-- accordion-body -->
+                                </div><!-- exp_1 collapse -->
+                            </div><!-- accordion-item -->
+                        </div><!-- accordion experience-container -->
 
-                </div><!-- ID To Collapse -->
-              </div><!-- End of accordion item -->
+                        <div class="experience_container" id="exp_accordion">
+                        </div><!-- experience-container -->
+
+                        <button id="add-experience" class="btn btn-link float-end">
+                            <i class="bi bi-plus"></i> Add Expérience
+                        </button>
+
+                    </div><!-- --- accordion-body -->
+                </div><!---------- id to collapse -->
+              </div><!------------ accordion-item -->
+
             </div><!-- end of accordion -->
             <!-- ===================================================================== -->
 
-            <button type="submit" class="mt-3 btn btn-primary submit-btn">Generate CV</button>
+            <div class="d-flex justify-content-end align-items-center mt-4">
+                <div class="me-4 fs-5">
+                    <div class="form-check">
+                        <input id="save_pdf" class="form-check-input" type="radio" name="output_type" value="pdf">
+                        <label class="form-check-label" for="save_pdf">Save As PDF</label>
+                    </div>
+                </div>
+
+                <div class="me-4 fs-5">
+                    <div class="form-check">
+                        <input id="view_template" class="form-check-input" type="radio" name="output_type" value="view" checked>
+                        <label class="form-check-label" for="view_template">View in Browser</label>
+                    </div>
+                </div>
+
+                <div class="">
+                    <button type="submit" class="fs-5 btn btn-primary submit-btn">Generate CV</button>
+                </div>
+            </div>
 
         </form>
             </div><!--end of card-body -->

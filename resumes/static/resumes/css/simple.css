@@ -9,17 +9,17 @@
 }
 
 @page {
-  font-family: 'Monaco';
+  font-family: 'TT Condensed';
   margin: 1cm;
 }
 
-html {
-  font-family: 'Monaco';
-  font-size: 9pt;
-}
+/*html {*/
+/*}*/
 
 body {
+    font-family: 'TT Condensed';
     margin: 0;
+    font-size: 9pt;
 }
 
 header {
@@ -37,7 +37,7 @@ header .name-job {
 }
 
 h1, h2 {
-    font-family: 'Monaco';
+    font-family: 'TT Condensed Italic';
 }
 
 header h1 {
@@ -66,6 +66,10 @@ ul li::before {
     content: '• ';
     line-height: 16pt;
     vertical-align: middle;
+}
+
+.link-name, .link-url {
+    margin: 0;
 }
 
 .link-url {
