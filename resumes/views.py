@@ -51,14 +51,15 @@ def get_skills_ai(request):
         You are an expert in career development and job market analysis.
         I am building a CV generator, and I need a list of essential skills for a given job title.
 
-        Please return a structured JSON list of **exactly 10** skills for the following job title: **{job_title}**
+        Please return a structured JSON list of **exactly 15** skills for the following job title: **{job_title}**
 
         ### **Output Format (JSON)**
         {{
             "skills": [
                 "Skill 1",
                 "Skill 2",
-                "Skill 10"
+                "Skill 10",
+                "..."
             ]
         }}
 
@@ -79,16 +80,6 @@ def get_skills_ai(request):
             return JsonResponse({'status': 'success', 'ai_skills': skills})
         except Exception as err:
             return JsonResponse({'status': 'error', 'message': str(err)})
-
-
-# from django.shortcuts import render
-# from django.http import HttpResponse, JsonResponse
-# from django.template.loader import render_to_string
-# from django.contrib.staticfiles import finders
-# from django.conf import settings
-# from weasyprint import HTML, CSS
-# from pathlib import Path
-# from .forms import CVForm
 
 
 # ==============

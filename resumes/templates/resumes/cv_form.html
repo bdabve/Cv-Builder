@@ -10,8 +10,8 @@
 <body>
     <div id="container">
         
-        <div class="card m-auto" style="width: 50rem;">
-            <div class="card-header">
+        <div class="card m-auto my-5" style="width: 50rem;">
+            <div class="card-header text-center">
                 <h1>Create Your CV</h1>
             </div>
 
@@ -31,25 +31,25 @@
             {% endif %}
 
             <!-- ===================== Accordion de merde ================================================ -->
-            <div class="accordion" id="accordionExample">
+            <div class="accordion accordion-flush" id="mainAccordion">
 
                 <!-- mainInformation -->
               <div class="accordion-item">
                 <h2 class="accordion-header" id="information">
                     <button class="accordion-button fs-5" 
                             type="button" data-bs-toggle="collapse" data-bs-target="#collapseInfo" 
-                            aria-expanded="true" aria-controls="collapseOne">
-                        <i class="bi bi-person-lines-fill"></i>&nbsp;&nbsp; Information
+                            aria-expanded="true" aria-controls="collapseInfo">
+                        <i class="bi bi-person-lines-fill"></i>&nbsp;&nbsp; Profile
                   </button>
                 </h2>
 
                 <div id="collapseInfo" class="accordion-collapse collapse show" 
-                    aria-labelledby="information" data-bs-parent="#accordionExample">
+                    aria-labelledby="information" data-bs-parent="#mainAccordion">
                   <div class="accordion-body">
 
                       <!-- Info Container -->
                       <div id="info-container">
-                        <div class="row align-items-start mb-3">
+                        <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label" for="{{ form.poste.id_for_label }}">{{ form.poste.label }}</label>
                                 {{ form.poste }}
@@ -64,7 +64,7 @@
 
                         <hr>
                         
-                        <div class="row align-items-start mb-3">
+                        <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label" for="{{ form.first_name.id_for_label }}">
                                     {{ form.first_name.label }}
@@ -77,9 +77,9 @@
                                 </label>
                                 {{ form.last_name }}
                             </div>
-                        </div><!-- First-name and Last-name -->
+                        </div><!-- First-name & Last-name -->
 
-                        <div class="row align-items-start mb-3">
+                        <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
                                 {{ form.email }}
@@ -88,11 +88,11 @@
                                 <label class="form-label" for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
                                 {{ form.phone }}
                             </div>
-                        </div> <!-- Email and Phone -->
+                        </div> <!-- Email & Phone -->
 
                         <hr>
                         
-                        <div class="row align-items-start mb-3">
+                        <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label" for="{{ form.address.id_for_label }}">{{ form.address.label }}</label>
                                 {{ form.address }}
@@ -101,9 +101,9 @@
                                 <label class="form-label" for="{{ form.ville.id_for_label }}">{{ form.ville.label }}</label>
                                 {{ form.ville }}
                             </div>
-                        </div><!-- Address and Ville -->
+                        </div><!-- Address & Ville -->
 
-                        <div class="row align-items-start mb-3">
+                        <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label" for="{{ form.code_postal.id_for_label }}">
                                     {{ form.code_postal.label }}
@@ -114,11 +114,11 @@
                                 <label class="form-label" for="{{ form.paye.id_for_label }}">{{ form.paye.label }}</label>
                                 {{ form.paye }}
                             </div>
-                        </div><!-- CodePostal and Paye-->
+                        </div><!-- CodePostal & Paye -->
 
                         <hr>
                         
-                        <div class="row align-items-start mb-3">
+                        <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label" for="{{ form.d_naissance.id_for_label }}">
                                     {{ form.d_naissance.label }}
@@ -131,19 +131,19 @@
                                 </label>
                                 {{ form.sit_family }}
                             </div>
-                        </div><!-- D.Naissance -->
+                        </div><!-- D.Naissance & situation familiale -->
 
-                        <div class="row align-items-start mb-3">
+                        <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label" for="{{ form.permis.id_for_label }}">{{ form.permis.label }}</label>
                                 {{ form.permis }}
                             </div>
                             <div class="col"></div>
-                        </div><!-- Situation Familiale and Permis -->
+                        </div><!-- Permis -->
 
                         <hr>
                         
-                        <div class="row align-items-start mb-3">
+                        <div class="row mb-3">
                             <div class="col">
                                 <div class="d-flex justify-content-between mb-2">
                                     <label class="form-label" for="{{ form.profile.id_for_label }}">
@@ -160,9 +160,8 @@
 
                       </div><!-- profile container -->
                   </div><!-- accordion body -->
-
-                </div><!-- collapse -->
-              </div><!-- end item -->
+                </div><!-- id collapse -->
+              </div><!-- end accordion-item -->
 
               <!-- ===================================================================== -->
 
@@ -177,65 +176,178 @@
                 </h2>
 
                 <div id="collapseEducation" class="accordion-collapse collapse" 
-                    aria-labelledby="education" data-bs-parent="#accordionExample">
+                    aria-labelledby="education" data-bs-parent="#mainAccordion">
+
                   <div class="accordion-body">
 
                     <!-- Education Container -->
                     <div id="education-container">
-                        <div class="row mb-3 form-group">
+                        <div class="row mb-3">
                             <div class="col">
-                                <label class="form-label" for="{{ form.edu_ecole.id_for_label }}">
-                                    {{ form.edu_ecole.label }}
+                                <label class="form-label" for="edu_ecole_0">
+                                    Ecole
                                 </label>
-                                {{ form.edu_ecole }}
+                                <input class="form-control" id="edu_ecole_0" 
+                                       type="text" 
+                                       name="edu_ecole_0" 
+                                       placeholder="Ecole">
                             </div>
                             <div class="col">
-                                <label class="form-label" for="{{ form.edu_diplome.id_for_label }}">
-                                    {{ form.edu_diplome.label }}
-                                </label>
-                                {{ form.edu_diplome }}
+                                <label class="form-label" for="edu_diplome_0">Diplôme</label>
+                                <input class="form-control" id="edu_diplome_0" 
+                                       type="text" 
+                                       name="edu_diplome_0" 
+                                       placeholder="Diplôme">
                             </div>
-                        </div><!-- Ecole and Diplome -->
+                        </div><!-- Education Ecole and Diplome -->
 
-                        <div class="row mb-3 form-group">
+                        <div class="row mb-3">
                             <div class="col">
-                                <label class="form-label" for="{{ form.edu_start_date.id_for_label }}">
-                                    {{ form.edu_start_date.label }} - {{ form.edu_end_date.label }}
-                                </label>
+                                <label class="form-label" for="edu_start_date_0">Date de début</label>
                                 <div class="d-flex justify-content-between">
-                                    <div>{{ form.edu_start_date }}</div>
-                                    <div>{{ form.edu_end_date }}</div>
+                                    <input class="form-control" id="edu_start_date_0" 
+                                           type="date" 
+                                           name="edu_start_date_0">
+                                    <input class="form-control" id="edu_end_date_0" 
+                                           type="date" 
+                                           name="edu_end_date_0">
                                 </div>
                             </div>
                             <div class="col">
-                                <label class="form-label" for="{{ form.edu_ville.id_for_label }}">
-                                    {{ form.edu_ville.label }}
-                                </label>
-                                {{ form.edu_ville }}
-                                <datalist id="detailsVille">
-                                    <option value="Bou-Ismail"></option>
-                                    <option value="New York"></option>
-                                    <option value="Oran"></option>
-                                    <option value="Skikda"></option>
-                                </datalist>
+                                <label class="form-label" for="edu_ville_0">Ville</label>
+                                <input class="form-control" id="edu_ville_0" 
+                                       type="text" 
+                                       name="edu_ville_0" 
+                                       placeholder="Ville">
                             </div>
-                        </div><!-- Date and Ville -->
+                        </div><!-- start-date & end-date & ville -->
 
-                        <div class="row mb-3 form-group">
+                        <div class="row mb-3">
                             <div class="col">
-                                <label class="form-label" for="{{ form.edu_description.id_for_label }}">
-                                    {{ form.edu_description.label }}
-                                </label>
-                                {{ form.edu_description }}
+                                <div class="d-flex justify-content-between">
+                                    <label class="form-label" for="edu_description_0">Description</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" id="edu_as_list_0"
+                                               type="checkbox" 
+                                               name="edu_as_list_0"
+                                               value="1">
+                                        <label class="form-check-label" for="edu_as_list_0">Display as a list</label>
+                                    </div>
+                                </div><!-- label description & display as a list -->
+                                <textarea class="form-control" id="edu_description_0"
+                                          name="edu_description_0" 
+                                          placeholder="e.g Mention Trés bien."></textarea>
                             </div>
                         </div><!-- Description -->
 
-                        <button class="btn btn-link"><i class="bi bi-plus"></i> Add Education</button>
-                    </div><!-- End of Education Container -->
-                  </div><!-- accordion body -->
+                        <div class="accordion shadow" id="education-accordion" style="display: none;">
 
-                </div><!-- collapse -->
-              </div><!-- end item -->
+                            <div class="accordion-item"> 
+                                <h2 class="accordion-header" id="edu_head_1">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#edu_1" aria-expanded="true" aria-controles="edu_1">
+                                        Education #2
+                                    </button>
+                                </h2>
+                                <div id="edu_1" class="accordion-collapse collapse show" aria-labeledby="edu_head_1"
+                                     data-bs-parent="#education-accordion">
+
+                                    <div class="accordion-body">
+
+                                        <div class="row mb-3 border-bottom border-3 border-secondary">
+                                            <div class="col">
+                                                <p class="lead">Education #2</p>
+                                            </div>
+                                            <div class="col">
+                                                <button type="button" 
+                                                        class="remove-accordion-item btn btn-sm btn-outline-danger float-end">
+                                                    <i class="bi bi-trash3"></i>
+                                                </button>
+                                            </div>
+                                        </div><!-- remove button -->
+
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <label class="form-label" for="edu_ecole_1">
+                                                    Ecole
+                                                </label>
+                                                <input class="form-control" id="edu_ecole_1" 
+                                                       type="text" 
+                                                       name="edu_ecole_1" 
+                                                       placeholder="Ecole">
+                                            </div>
+                                            <div class="col">
+                                                <label class="form-label" for="edu_diplome_1">Diplôme</label>
+                                                <input class="form-control" id="edu_diplome_1" 
+                                                       type="text" 
+                                                       name="edu_diplome_1" 
+                                                       placeholder="Diplôme">
+                                            </div>
+                                        </div><!-- Education Poste & Employée -->
+
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <label class="form-label" for="edu_start_date_1">Date de début</label>
+                                                <div class="d-flex justify-content-between">
+                                                    <input class="form-control" id="edu_start_date_1" 
+                                                           type="date" 
+                                                           name="edu_start_date_1">
+                                                    <input class="form-control" id="edu_end_date_1" 
+                                                           type="date" 
+                                                           name="edu_end_date_1">
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <label class="form-label" for="edu_ville_1">Ville</label>
+                                                <input class="form-control" id="edu_ville_1" 
+                                                       type="text" 
+                                                       name="edu_ville_1" 
+                                                       placeholder="Ville">
+                                            </div>
+                                        </div><!-- Education start-date & end-date & Ville -->
+
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <div class="d-flex justify-content-between">
+                                                    <label class="form-label" for="edu_description_1">Description</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" id="edu_as_list_1"
+                                                               type="checkbox" 
+                                                               name="edu_as_list_1"
+                                                               value="1">
+                                                        <label class="form-check-label" for="edu_as_list_1">
+                                                            Display as a list
+                                                        </label>
+                                                    </div>
+                                                </div><!-- Edu Desc label & edu-as-list -->
+                                                <textarea class="form-control" id="edu_description_1"
+                                                          name="edu_description_1" 
+                                                          placeholder="e.g Mention Trés bien."></textarea>
+                                            </div>
+                                        </div><!-- Education Description -->
+
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                            </div>
+                                        </div>
+
+                                    </div><!-- accordion-body -->
+                                </div><!-- edu_1 collapse -->
+                            </div><!-- Accordion-item -->
+                        </div><!-- Accordion education-container -->
+
+                        <div class="row">
+                            <div class="col">
+                                <button id="add-education" class="btn btn-link my-2 float-end">
+                                    <i class="bi bi-plus"></i> Add Education
+                                </button>
+                            </div>
+                        </div>
+                    </div><!-- End of Education Container -->
+
+                  </div><!-- Education Accordion Body -->
+                </div><!-- ID Education Collapse -->
+              </div><!-- Education item -->
 
               <!-- ===================================================================== -->
 
@@ -244,17 +356,17 @@
                 <h2 class="accordion-header" id="languages">
                     <button class="accordion-button collapsed fs-5" 
                             type="button" data-bs-toggle="collapse" data-bs-target="#collapseLang" 
-                            aria-expanded="true" aria-controls="collapseOne">
+                            aria-expanded="true" aria-controls="collapseLang">
                       
                         <i class="bi bi-translate"></i>&nbsp;&nbsp; Languages
                   </button>
                 </h2>
 
                 <div id="collapseLang" class="accordion-collapse collapse" 
-                    aria-labelledby="languages" data-bs-parent="#accordionExample">
+                    aria-labelledby="languages" data-bs-parent="#mainAccordion">
                   <div class="accordion-body">
 
-                    <div id="languages-container" class="">
+                    <div id="languages-container">
                         <div class="row mb-3 content-div">
                             <div class="col">
                                 <input type="text" name="languages_0" placeholder="Enter a language" class="form-control">
@@ -262,23 +374,27 @@
 
                             <div class="col d-flex justify-content-between">
                                 <select id="" name="proficiency_0" class="form-select">
-                                    <option selected>Profeciency</option>
-                                    <option value="1" selected>Beginner</option>
+                                    <option value="1">Beginner</option>
                                     <option value="2">Intermediate</option>
                                     <option value="3">Fluent</option>
                                     <option value="4">Maternal</option>
                                 </select>
-                                <button type="button" class="btn remove-btn btn-danger ms-2">Remove</button>
+                                <button type="button" class="remove-btn btn btn-outline-danger ms-2">
+                                    <i class="bi bi-trash3"></i>
+                                </button>
                             </div>
                         </div>  
+                    </div><!-- langugage-container -->
 
-                    </div><!-- end of langugage container -->
-                    <button id="add-language-btn" type="button" class="btn btn-link">+ Add Language</button>
+                      <div class="row my-3">
+                          <div class="col">
+                              <button id="add-language-btn" type="button" class="btn btn-link float-end">+ Add Language</button>
+                          </div>
+                      </div>
 
                   </div><!-- accordion body -->
-
-                </div><!-- collapse -->
-              </div><!-- end item -->
+                </div><!-- ID Collapse -->
+              </div><!-- language accordion-item -->
             
               <!-- ===================================================================== -->
               <!-- Links -->
@@ -286,32 +402,39 @@
                 <h2 class="accordion-header" id="Links">
                     <button class="accordion-button collapsed fs-5" 
                             type="button" data-bs-toggle="collapse" data-bs-target="#collapseLinks" 
-                            aria-expanded="false" aria-controls="collapseTwo">
+                            aria-expanded="false" aria-controls="collapseLinks">
                         <i class="bi bi-browser-chrome"></i>&nbsp;&nbsp; Links
                     </button>
                 </h2>
                 
                 <div id="collapseLinks" class="accordion-collapse collapse" 
-                    aria-labelledby="Links" data-bs-parent="#accordionExample">
+                    aria-labelledby="Links" data-bs-parent="#mainAccordion">
                   
                     <div class="accordion-body">
+
                       <div id="links-container">
-                          <div class="row mb-3 content-div">
+                          <div class="row mb-3 content-div"> <!-- content-div to work with in jQuery -->
                               <div class="col">
                                   <input type="text" name="link_name_0" 
                                          placeholder="Enter link name (e.g., YouTube)" class="form-control">
                               </div>
                               <div class="col d-flex justify-content-between">
                                   <input type="url" name="link_url_0" placeholder="Enter link URL" class="form-control">
-                                  <button type="button" class="btn btn-danger ms-2 remove-btn">Remove</button>
+                                  <button type="button" class="remove-btn btn btn-outline-danger ms-2">
+                                      <i class="bi bi-trash3"></i>
+                                  </button>
                               </div>
                           </div>
                       </div><!-- end of links-container -->
-                      <button id="add-link-btn" type="button" class="btn btn-link">+ Add Link</button>
+                      <div class="row my-3">
+                          <div class="col">
+                            <button id="add-link-btn" type="button" class="btn btn-link float-end">+ Add Link</button>
+                          </div>
+                      </div>
 
-                    </div><!-- Accordion Body -->
-                </div><!-- ID To Collapse -->
-              </div><!-- End of accordion item -->
+                    </div><!-- Accordion-body -->
+                </div><!-- ID Collapse -->
+              </div><!-- Links accordion-item -->
 
               <!-- ===================================================================== -->
 
@@ -320,14 +443,14 @@
                 <h2 class="accordion-header" id="skills">
                     <button class="accordion-button collapsed fs-5" 
                             type="button" data-bs-toggle="collapse" data-bs-target="#collapseSkills" 
-                            aria-expanded="false" aria-controls="collapseTwo">
+                            aria-expanded="false" aria-controls="collapseSkills">
 
                         <i class="bi bi-list-check"></i>&nbsp;&nbsp; Skills
                     </button>
                 </h2>
                 
                 <div id="collapseSkills" class="accordion-collapse collapse" 
-                    aria-labelledby="skills" data-bs-parent="#accordionExample">
+                    aria-labelledby="skills" data-bs-parent="#mainAccordion">
                   
                     <div class="accordion-body">
                         <div id="skills-container">
@@ -336,7 +459,7 @@
                             </div>
 
                             <div class="row mb-3 content-div">
-                                <div class="col form-group-input">
+                                <div class="col">
                                     <input type="text" name="skills_0" placeholder="Enter a skill" class="form-control">
                                 </div>
                                 <div class="col d-flex justify-content-between">
@@ -345,12 +468,13 @@
                                         <option value="Intermediate">Intermediate</option>
                                         <option value="Advanced">Advanced</option>
                                     </select>
-                                    <button type="button" class="btn btn-outline-danger btn-sm remove-btn ms-1">
-                                        <i class="bi bi-trash-fill"></i>
+                                    <button type="button" class="remove-btn btn btn-outline-danger ms-1">
+                                        <i class="bi bi-trash3"></i>
                                     </button>
                                 </div>
                             </div>  
                         </div><!-- skills container -->
+
                         <div class="d-flex justify-content-between">
                             <button id="add-skill-btn" type="button" class="btn btn-link">
                                 <i class="bi bi-plus"></i> Add Skill
@@ -359,11 +483,10 @@
                             <button id="ai-poste-skills" class="btn btn-outline-success btn-sm">
                                 <i class="bi bi-robot"></i> AI Generate Common Skills
                             </button>
-                        </div>
+                        </div><!-- Buttons add-skills & ai-button -->
                     </div><!-- Accordion Body -->
-
-                </div><!-- ID To Collapse -->
-              </div><!-- End of accordion item -->
+                </div><!-- ID Collapse -->
+              </div><!-- Skills accordion-item -->
 
               <!-- ===================================================================== -->
 
@@ -379,9 +502,10 @@
                 </h2>
                 
                 <div id="collapseExp" class="accordion-collapse collapse" 
-                    aria-labelledby="experience" data-bs-parent="#accordionExample">
+                    aria-labelledby="experience" data-bs-parent="#mainAccordion">
                   
                     <div class="accordion-body clearfix">
+
                         <div class="experience-container accordion" id="experience-accordion">
 
                             <div class="accordion-item"> 
@@ -395,7 +519,14 @@
                                      data-bs-parent="experience-accordion">
                                     <div class="accordion-body">
 
-                                        <p class="lead border-bottom">Expérience #1</p>
+                                        <div class="row mb-3 border-bottom border-3 border-secondary">
+                                            <div class="col">
+                                                <p class="lead">Expérience #1</p>
+                                            </div>
+                                            <div class="col">
+                                            </div>
+                                        </div><!-- remove btn row -->
+
                                         <div class="row mb-3">
                                             <div class="col">
                                                 <label class="form-label" for="exp_post_title_1">
@@ -440,34 +571,37 @@
                                             </div>
                                         </div><!-- Exp Date and Ville -->
 
-                                        <div class="form-group">
-                                            <div class="d-flex justify-content-between">
-                                                <label class="form-label" for="exp_description_1">Description</label>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" id="exp_as_list_1"
-                                                           type="checkbox" 
-                                                           name="exp_desc_as_list_1"
-                                                           value="1">
-                                                    <label class="form-check-label" for="exp_as_list_1">
-                                                        Display as a list
-                                                    </label>
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <div class="d-flex justify-content-between">
+                                                    <label class="form-label" for="exp_description_1">Description</label>
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" id="exp_as_list_1"
+                                                               type="checkbox" 
+                                                               name="exp_desc_as_list_1"
+                                                               value="1">
+                                                        <label class="form-check-label" for="exp_as_list_1">
+                                                            Display as a list
+                                                        </label>
+                                                    </div>
                                                 </div>
+                                                <textarea class="form-control" id="exp_description_1"
+                                                          name="exp_description_1" 
+                                                          placeholder="Enter Description for this post"></textarea>
                                             </div>
-                                            <textarea class="form-control" id="exp_description_1"
-                                                      name="exp_description_1" 
-                                                      placeholder="Enter Description for this post"></textarea>
                                         </div><!-- Exp Description -->
                                     </div><!-- accordion-body -->
                                 </div><!-- exp_1 collapse -->
                             </div><!-- accordion-item -->
                         </div><!-- accordion experience-container -->
 
-                        <div class="experience_container" id="exp_accordion">
-                        </div><!-- experience-container -->
-
-                        <button id="add-experience" class="btn btn-link float-end">
-                            <i class="bi bi-plus"></i> Add Expérience
-                        </button>
+                        <div class="row my-3">
+                            <div class="col">
+                                <button id="add-experience" class="btn btn-link float-end">
+                                    <i class="bi bi-plus"></i> Add Expérience
+                                </button>
+                            </div>
+                        </div>
 
                     </div><!-- --- accordion-body -->
                 </div><!---------- id to collapse -->
@@ -498,9 +632,6 @@
 
         </form>
             </div><!--end of card-body -->
-            <div class="card-footer text-muted">
-                2 Days Ago
-            </div>
         </div><!-- end of card -->
     </div>
 

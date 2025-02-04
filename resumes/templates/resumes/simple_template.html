@@ -31,7 +31,7 @@
           <div id="formation">
               <h2><span class="icon">🎓</span> Formation</h2>
               <p class="small-title">
-                  {{ data.edu_diplome }}, {{ data.edu_ecole }}{% if data.edu_ville %}, {{ data.edu_ville }}{% endif %}
+              {{ data.edu_diplome }}, <b>{{ data.edu_ecole }}</b>{% if data.edu_ville %}, {{ data.edu_ville }}{% endif %}
               </p>
               <p class="date">
                 {% if data.edu_start_date %}
@@ -45,7 +45,7 @@
               <h2>💼 Experience</h2>
               {% for exp in data.experiences %}
                   <p class="small-title">
-                      {{ exp.exp_post_title }}, {{ exp.exp_employee }}
+                      {{ exp.exp_post_title }}, <span class="employee" style="text-transform: uppercase;">{{ exp.exp_employee }}</span>
                   </p>
                   <p class="date">
                       {% if exp.exp_start_date %}{{ exp.exp_start_date }} - {{ exp.exp_end_date }}{% endif %}

@@ -7,6 +7,7 @@ $(document).ready(function() {
     let skillCount = 1;
     let linkCount = 1;
     let experienceCount = 1;
+    let educationCount = 1;
 
     // Common Skills
     let commonSkills = [];
@@ -25,12 +26,29 @@ $(document).ready(function() {
             $("#common-skills").append(`<div class="skill">${skill}&nbsp;<i class="bi bi-plus"></i></div>`);
         });
     }
-    refreshCommonSkills();
 
-    // Remove
+    // Remove Row
     $(document).on("click", ".remove-btn", function() {
         $(this).closest(".content-div").fadeOut(300, function() { $(this).remove(); });
     });
+
+    // Remove Experience Accordion
+    $(document).on("click", ".remove-accordion-item", function() {
+        /*
+        let btn_id = $(this).attr('id')
+        if ( btn_id == 'remove-accordion-exp' ) {
+            console.log('decrement expcount')
+            experienceCount -= 1
+            console.log(experienceCount)
+        } else if ( btn_id == 'remove-accordion-edu' ) {
+            console.log('decrement edu')
+            educationCount -= 1
+            console.log(educationCount)
+        }
+        */
+        $(this).closest(".accordion-item").fadeOut(300, function() { $(this).remove(); });
+    });
+
 
     // Skills
     function createSkillRow(skillName = "") {
@@ -46,8 +64,8 @@ $(document).ready(function() {
                         <option value="Intermediate">Intermediate</option>
                         <option value="Advanced">Advanced</option>
                     </select>
-                    <button type="button" class="btn btn-outline-danger btn-sm remove-btn ms-1">
-                        <i class="bi bi-trash"></i>
+                    <button type="button" class="remove-btn btn btn-outline-danger ms-1">
+                        <i class="bi bi-trash3"></i>
                     </button>
                 </div>
             </div>
@@ -71,7 +89,6 @@ $(document).ready(function() {
         if (!skillExists) {
             createSkillRow(selectedSkill);
             commonSkills = commonSkills.filter(skill => skill !== selectedSkill);
-            //refreshCommonSkills();
         }
 
         $(this).fadeOut(300, function () { $(this).remove(); });
@@ -82,7 +99,6 @@ $(document).ready(function() {
     $("#ai-poste-skills").on("click", function(e) {
         e.preventDefault();
         let jobTitle = $('#id_poste').val();
-        console.log('Getting Skills for JobTitle: ', jobTitle)
         if (jobTitle.length > 2) {
             $.ajax({
                 url: '/resumes/get-skills/',  // The URL of your Django view
@@ -99,7 +115,7 @@ $(document).ready(function() {
                     if ( response.status == 'success' ) {
                         refreshCommonSkills()
                         skills = response.ai_skills;  // Display the response from Django
-                        let commonSkills = skills
+                        commonSkills = skills
                         $.each(skills, function(index, skill) {
                             $("#common-skills").append(`<div class="skill">${skill}&nbsp;<i class="bi bi-plus"></i></div>`);
                         });
@@ -108,12 +124,11 @@ $(document).ready(function() {
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.log(response)
-                    console.log('Error:', error);
+                    console.log('Status', status, 'Error:', error);
                 }
             });
         } else {
-            console.log('You must provide a job title to get data.');
+            $('#id_poste').focus()
         }
     });
 
@@ -131,7 +146,9 @@ $(document).ready(function() {
                         <option value="3">Fluent</option>
                         <option value="4">Maternal</option>
                     </select>
-                    <button type="button" class="btn remove-btn btn-danger ms-2">Remove</button>
+                    <button type="button" class="remove-btn btn btn-outline-danger ms-2">
+                        <i class="bi bi-trash3"></i>
+                    </button>
                 </div>
             </div>
         `);
@@ -149,7 +166,9 @@ $(document).ready(function() {
                 </div>
                 <div class="col d-flex justify-content-between">
                     <input type="url" name="link_url_${linkCount}" placeholder="Enter link URL" class="form-control">
-                    <button type="button" class="btn remove-btn btn-danger ms-2">Remove</button>
+                    <button type="button" class="remove-btn btn btn-outline-danger ms-2">
+                        <i class="bi bi-trash3"></i>
+                    </button>
                 </div>
             </div>
         `);
@@ -185,7 +204,7 @@ $(document).ready(function() {
                 }
             });
         } else {
-            console.log('You must provide a job title to get data.');
+            $('#id_poste').focus();
         }
     });
 
@@ -206,7 +225,21 @@ $(document).ready(function() {
                 <div id="exp_${experienceCount}" class="accordion-collapse collapse" aria-labelledby="exp_head_${experienceCount}"
                      data-bs-parent="#experience-accordion">
                     <div class="accordion-body">
-                        <p class="lead border-bottom">Expérience #${experienceCount}</p>
+
+                        <div class="row mb-3 border-bottom border-3 border-secondary">
+                            <div class="col">
+                                <p class="lead">Expérience #${experienceCount}</p>
+                            </div>
+                            <div class="col">
+                                <div class="col">
+                                    <button id="remove-accordion-exp" type="button"
+                                            class="remove-accordion-item btn btn-sm btn-outline-danger float-end">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- end of remove button row -->
+
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label" for="exp_post_title_${experienceCount}">Poste</label>
@@ -245,16 +278,18 @@ $(document).ready(function() {
                             </div>
                         </div><!-- Exp Date -->
 
-                        <div class="form-group">
-                            <label class="form-label" for="exp_description_${experienceCount}">Description</label>
-                            <textarea class="form-control" id="exp_description_${experienceCount}"
-                                      placeholder="A brief description about this job."
-                                      name="exp_description_${experienceCount}"></textarea>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label class="form-label" for="exp_description_${experienceCount}">Description</label>
+                                <textarea class="form-control" id="exp_description_${experienceCount}"
+                                          placeholder="A brief description about this job."
+                                          name="exp_description_${experienceCount}"></textarea>
+                            </div>
                         </div><!-- Exp Description -->
 
-                        <button type="button" class="btn btn-danger remove-experience-btn mt-2">
-                            <i class="bi bi-trash3"></i> Remove
-                        </button>
+                        <div class="row mb-3">
+                        </div>
+
                     </div><!-- accordion-body -->
                 </div><!-- collapse -->
             </div><!-- accordion-item -->
@@ -262,10 +297,106 @@ $(document).ready(function() {
         $("#experience-accordion").append(newExperience);
     });
 
-    // Remove Experience Accordion
-    $(document).on("click", ".remove-experience-btn", function() {
-        console.log('Removing Experience Accordion Item');
-        $(this).closest(".accordion-item").fadeOut(300, function() { $(this).remove(); });
+    // ---------------------------------------------------------------------
+    // Experience
+    $('#add-education').click(function(e){
+        e.preventDefault();
+        if (educationCount == 1) {
+            $('#education-accordion').show()
+        } else {
+            let newEducation = $(`
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="edu_head_${educationCount}">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#edu_${educationCount}" aria-expanded="true"
+                                aria-controles="#edu_${educationCount}">
+
+                            Education #${educationCount + 1}
+                        </button>
+                    </h2>
+                    <div id="edu_${educationCount}" class="accordion-collapse collapse"
+                         aria-labeledby="edu_head_${educationCount}" data-bs-parent="#education-accordion">
+                        <div class="accordion-body">
+
+                            <div class="row mb-3 border-bottom border-3 border-secondary">
+                                <div class="col">
+                                    <p class="lead">Education #${educationCount + 1}</p>
+                                </div>
+                                <div class="col">
+                                    <button id="remove-accordion-edu" type="button"
+                                            class="remove-accordion-item btn btn-sm btn-outline-danger float-end">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
+                                </div>
+                            </div><!-- remove button row -->
+
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label class="form-label" for="edu_ecole_${educationCount}">
+                                        Ecole
+                                    </label>
+                                    <input class="form-control" id="edu_ecole_${educationCount}"
+                                           type="text"
+                                           name="edu_ecole_${educationCount}"
+                                           placeholder="Ecole">
+                                </div>
+                                <div class="col">
+                                    <label class="form-label" for="edu_diplome_${educationCount}">Diplôme</label>
+                                    <input class="form-control" id="edu_diplome_${educationCount}"
+                                           type="text"
+                                           name="edu_diplome_${educationCount}"
+                                           placeholder="Diplôme">
+                                </div>
+                            </div><!-- Education Poste & Employée -->
+
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <label class="form-label" for="edu_start_date_${educationCount}">Date de début</label>
+                                    <div class="d-flex justify-content-between">
+                                        <input class="form-control" id="edu_start_date_${educationCount}"
+                                               type="date"
+                                               name="edu_start_date_${educationCount}">
+                                        <input class="form-control" id="edu_end_date_${educationCount}"
+                                               type="date"
+                                               name="edu_end_date_${educationCount}">
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <label class="form-label" for="edu_ville_${educationCount}">Ville</label>
+                                    <input class="form-control" id="edu_ville_${educationCount}"
+                                           type="text"
+                                           name="edu_ville_${educationCount}"
+                                           placeholder="Ville">
+                                </div>
+                            </div><!-- Education Date & Ville -->
+
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <div class="d-flex justify-content-between">
+                                        <label class="form-label" for="edu_description_${educationCount}">Description</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" id="edu_as_list_${educationCount}"
+                                                   type="checkbox"
+                                                   name="edu_as_list_${educationCount}"
+                                                   value="1">
+                                            <label class="form-check-label" for="edu_as_list_${educationCount}">
+                                                Display as a list
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <textarea class="form-control" id="edu_description_${educationCount}"
+                                              name="edu_description_1"
+                                              placeholder="e.g Mention Trés bien."></textarea>
+                                </div>
+                            </div><!-- Exp Description -->
+
+                        </div><!-- accordion-body -->
+                    </div><!-- edu_2 collapse -->
+                </div><!-- accordion-item -->
+            `);
+        $("#education-accordion").append(newEducation);
+        }
+        educationCount++;
     });
 
 });
