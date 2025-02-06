@@ -6,7 +6,7 @@ This project integrates **AI** to suggest **profiles** and **skills** based on u
 ## 🚀 Features
 
 - ✅ Generate professional CVs in **PDF format** using WeasyPrint
-- ✅ **AI-powered** profile and skills suggestion
+- ✅ **AI-powered** profile and skills suggestion with language detection.
 - ✅ User-friendly interface for inputting **personal details, experiences, and skills**
 - ✅ Supports **image uploads** for profile pictures
 - ✅ Responsive design for desktop and mobile using Bootstrap5 and Bootstrap Icons
@@ -50,3 +50,6 @@ This project integrates **AI** to suggest **profiles** and **skills** based on u
 ## 💡 AI-Powered Profile & Skills Generation
 
 This project leverages AI to automatically suggest a professional profile summary and relevant skills based on user inputs. The AI analyzes the user's job role and experience to provide tailored recommendations, enhancing the CV creation process.
+
+
+Contact: [bdabve@gmail.com](mailto:bdabve@gmail.com)

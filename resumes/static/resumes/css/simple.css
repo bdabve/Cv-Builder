@@ -113,7 +113,11 @@ ul li::before {
     font-weight: bold;
 }
 
-#profile p, #formation p, #experience p, #experience ul {
+#profile p, 
+#formation p, 
+#experience p, 
+#experience ul,
+#formation ul{
     padding-left: 3em;
 }
 

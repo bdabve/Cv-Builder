@@ -1,0 +1,110 @@
+<div id="personalInfo-container">
+  <div class="row mb-3">
+      <div class="col">
+          <label class="form-label" for="{{ form.poste.id_for_label }}">{{ form.poste.label }}</label>
+          {{ form.poste }}
+      </div>
+      <div class="col">
+          <label class="form-label" for="{{ form.profile_image.id_for_label }}">
+              {{ form.profile_image.label }}
+          </label>
+          {{ form.profile_image }}
+      </div>
+  </div><!-- Poste and Profile image -->
+
+  <hr>
+  
+  <div class="row mb-3">
+      <div class="col">
+          <label class="form-label" for="{{ form.first_name.id_for_label }}">
+              {{ form.first_name.label }}
+          </label>
+          {{ form.first_name }}
+      </div>
+      <div class="col">
+          <label class="form-label" for="{{ form.last_name.id_for_label }}">
+              {{ form.last_name.label }}
+          </label>
+          {{ form.last_name }}
+      </div>
+  </div><!-- First-name & Last-name -->
+
+  <div class="row mb-3">
+      <div class="col">
+          <label class="form-label" for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+          {{ form.email }}
+      </div>
+      <div class="col">
+          <label class="form-label" for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+          {{ form.phone }}
+      </div>
+  </div> <!-- Email & Phone -->
+
+  <hr>
+  
+  <div class="row mb-3">
+      <div class="col">
+          <label class="form-label" for="{{ form.address.id_for_label }}">{{ form.address.label }}</label>
+          {{ form.address }}
+      </div>
+      <div class="col">
+          <label class="form-label" for="{{ form.ville.id_for_label }}">{{ form.ville.label }}</label>
+          {{ form.ville }}
+      </div>
+  </div><!-- Address & Ville -->
+
+  <div class="row mb-3">
+      <div class="col">
+          <label class="form-label" for="{{ form.code_postal.id_for_label }}">
+              {{ form.code_postal.label }}
+          </label>
+          {{ form.code_postal }}
+      </div>
+      <div class="col">
+          <label class="form-label" for="{{ form.paye.id_for_label }}">{{ form.paye.label }}</label>
+          {{ form.paye }}
+      </div>
+  </div><!-- CodePostal & Paye -->
+
+  <hr>
+  
+  <div class="row mb-3">
+      <div class="col">
+          <label class="form-label" for="{{ form.d_naissance.id_for_label }}">
+              {{ form.d_naissance.label }}
+          </label>
+          {{ form.d_naissance }}
+      </div>
+      <div class="col">
+          <label class="form-label" for="{{ form.sit_family.id_for_label }}">
+              {{ form.sit_family.label }}
+          </label>
+          {{ form.sit_family }}
+      </div>
+  </div><!-- D.Naissance & situation familiale -->
+
+  <div class="row mb-3">
+      <div class="col">
+          <label class="form-label" for="{{ form.permis.id_for_label }}">{{ form.permis.label }}</label>
+          {{ form.permis }}
+      </div>
+      <div class="col"></div>
+  </div><!-- Permis -->
+
+  <hr>
+  
+  <div class="row mb-3">
+      <div class="col">
+          <div class="d-flex justify-content-between mb-2">
+              <label class="form-label" for="{{ form.profile.id_for_label }}">
+                  {{ form.profile.label }}
+              </label>
+              <button id="ai-profile" class="btn btn-outline-success btn-sm"
+                      data-bs-toggle="tooltip" title="Generate Profile With IA" data-bs-placement="right">
+                  <i class="bi bi-robot"></i> Generate AI profile
+              </button>
+          </div>
+          {{ form.profile }}
+      </div>
+  </div><!-- Profile -->
+</div><!-- personalInfo container -->

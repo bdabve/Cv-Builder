@@ -1,0 +1,102 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+#
+# author        : el3arbi bdabve@gmail.com
+# created       :
+# desc          :
+# ----------------------------------------------------------------------------
+
+import os
+import dotenv
+dotenv.load_dotenv(dotenv.find_dotenv())
+
+import google.generativeai as genai
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+model = genai.GenerativeModel("gemini-1.5-flash")
+
+
+def generate_profile(job_title):
+    try:
+        prompt = f"""
+        You are an expert in career development and job market analysis.
+        I am building a CV generator, and I need a profile of given job title.
+
+        Generate a professional summary for a {job_title} profile.
+        Detect the language of the job title provided and return the response in the same language.
+        The summary should highlight key skills, expertise, and experience relevant to the role.
+        Keep it concise (100-150 words) and well-structured, making it suitable for a CV or LinkedIn profile.
+        Use a professional and engaging tone.
+        """
+        res = model.generate_content(prompt)
+        ai_profile = res.text
+        return {'status': 'success', 'ai_profile': ai_profile}
+    except Exception as err:
+        return {'status': 'error', 'message': str(err)}
+
+
+def generate_education_description(diploma):
+    prompt = f"""
+    You are an expert in education and career development.
+    I am building a CV generator, and I need a **professional education description** based on the given diploma or degree.
+
+    ### **Diploma/Degree:** **{diploma}**
+
+    ### **Requirements:**
+    - Detect the language of the diploma and generate the response in the same language.
+    - Generate a concise and well-structured description (3-5 sentences).
+    - Highlight key subjects, skills acquired, and relevance to the job market.
+    - Use a formal and professional tone suitable for a CV.
+    - If the diploma is general (e.g., "Bachelor of Science"), make the description **broad but relevant**.
+    - If it's specific (e.g., "Bachelor in Computer Science"), focus on **technical knowledge and industry relevance**.
+    - **Only return the description text without any extra information.**
+
+    ### **Example Output (for "Bachelor in Computer Science")**
+    "A Bachelor's degree in Computer Science provides a strong foundation in programming, algorithms, and software engineering. Students develop expertise in data structures, databases, and system architecture. The program emphasizes problem-solving, analytical thinking, and hands-on experience with modern technologies, preparing graduates for roles in software development, data analysis, and IT consulting."
+    """
+    try:
+
+        res = model.generate_content(prompt)
+        ai_edu_desc = res.text
+        return {'status': 'success', 'ai_edu_desc': ai_edu_desc}
+    except Exception as err:
+        return {'status': 'error', 'message': str(err)}
+
+
+def generate_skills(job_title):
+    prompt = f"""
+    You are an expert in career development and job market analysis.
+    I am building a CV generator, and I need a list of essential skills for a given job title.
+
+    Detect the language of the job title provided and return the response in the same language.
+    Please return a structured JSON list of **exactly 15** skills for the following job title: **{job_title}**
+
+    ### **Output Format (JSON)**
+    {{
+        "skills": [
+            "Skill 1",
+            "Skill 2",
+            "Skill 10",
+            "..."
+        ]
+    }}
+
+    Make sure the skills are **highly relevant** and include both **technical** and **soft skills** if applicable.
+    Only return the JSON response without any extra text.
+    """
+    try:
+        res = model.generate_content(prompt)
+        skills = list()
+
+        txt = res.text.split('\n')
+        for line in txt:
+            line = line.strip().strip(',')
+            if line.startswith('"') and line.endswith('"'):
+                skills.append(line.strip('"'))
+        return {'status': 'success', 'ai_skills': skills}
+    except Exception as err:
+        return {'status': 'error', 'message': str(err)}
+
+
+if __name__ == '__main__':
+    res = generate_skills('Programeur python')
+    print(res)

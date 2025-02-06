@@ -30,15 +30,27 @@
 
           <div id="formation">
               <h2><span class="icon">🎓</span> Formation</h2>
-              <p class="small-title">
-              {{ data.edu_diplome }}, <b>{{ data.edu_ecole }}</b>{% if data.edu_ville %}, {{ data.edu_ville }}{% endif %}
-              </p>
-              <p class="date">
-                {% if data.edu_start_date %}
-                    {{ data.edu_start_date }} - {{ data.edu_end_date }}
-                {% endif %}
-              </p>
-              <p>{{ data.edu_description }}</p>
+              {% for edu in data.educations %}
+                  <p class="small-title">
+                      {{ edu.edu_diplome }}, <b>{{ edu.edu_ecole }}</b>{% if edu.edu_ville %}, {{ edu.edu_ville }}{% endif %}
+                  </p>
+                  <p class="date">
+                      {% if edu.edu_start_date %}
+                          {{ edu.edu_start_date }} - {{ edu.edu_end_date }}
+                      {% endif %}
+                  </p>
+
+              
+                  {% if edu.edu_description|is_list %}
+                  <ul>
+                      {% for desc in edu.edu_description %}
+                      <li>{{ desc }}</li>
+                      {% endfor %}
+                  </ul>
+                  {% else %}
+                  <p>{{ edu.edu_description }}</p>
+                  {% endif %}
+              {% endfor %}
           </div><!-- formation -->
 
           <div id="experience">
@@ -52,10 +64,11 @@
                   </p>
                   {% if exp.exp_description|is_list %}
                     <ul>
-                    {% for desc in exp.exp_description %}
-                      <li>{{ desc }}</li>
-                    {% endfor %}
-                  </ul>
+                        {% for desc in exp.exp_description %}
+                            <li>{{ desc }}</li>
+                    
+                        {% endfor %}
+                    </ul>
                   {% else %}
                     <p>{{ exp.exp_description }}</p>
                   {% endif %}

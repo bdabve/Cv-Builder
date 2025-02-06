@@ -6,80 +6,36 @@ from django.conf import settings
 from weasyprint import HTML, CSS
 from .forms import CVForm
 from pathlib import Path
-
-
-# ==============
-# AI Funstions
-# =============
-import os
-import dotenv
-dotenv.load_dotenv(dotenv.find_dotenv())
-
-import google.generativeai as genai
-genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
-model = genai.GenerativeModel("gemini-1.5-flash")
+from . import ai_functions as ai
 
 
 def ai_profile(request):
     if request.method == "POST":
-        try:
-            job_title = request.POST.get('job_title')
-            prompt = f"""
-            You are an expert in career development and job market analysis.
-            I am building a CV generator, and I need a profile of given job title.
+        job_title = request.POST.get('job_title')
+        if not job_title:
+            return JsonResponse({'status': 'error', 'message': 'Job title is required'})
 
-            Generate a professional summary for a {job_title} profile.
-            The summary should highlight key skills, expertise, and experience relevant to the role.
-            Keep it concise (100-150 words) and well-structured, making it suitable for a CV or LinkedIn profile.
-            Use a professional and engaging tone.
-            """
-            if not job_title:
-                context = {'status': 'error', 'message': 'Job title is required'}
-                return JsonResponse(context)
+        result = ai.generate_profile(job_title)
+        return JsonResponse(result)
 
-            res = model.generate_content(prompt)
-            ai_profile = res.text
-            return JsonResponse({'status': 'success', 'ai_profile': ai_profile})
-        except Exception as err:
-            return JsonResponse({'status': 'error', 'message': str(err)}, status=500)
+
+def ai_education_description(request):
+    if request.method == 'POST':
+        diploma = request.POST.get('diploma')
+        if not diploma or len(diploma) < 1:
+            return JsonResponse({'status': 'error', 'message': 'diploma input is required'})
+        result = ai.generate_education_description(diploma)
+        return JsonResponse(result)
 
 
 def get_skills_ai(request):
     if request.method == "POST":
         job_title = request.POST.get('job_title')
-        prompt = f"""
-        You are an expert in career development and job market analysis.
-        I am building a CV generator, and I need a list of essential skills for a given job title.
-
-        Please return a structured JSON list of **exactly 15** skills for the following job title: **{job_title}**
-
-        ### **Output Format (JSON)**
-        {{
-            "skills": [
-                "Skill 1",
-                "Skill 2",
-                "Skill 10",
-                "..."
-            ]
-        }}
-
-        Make sure the skills are **highly relevant** and include both **technical** and **soft skills** if applicable.
-        Only return the JSON response without any extra text.
-        """
         if not job_title or len(job_title) < 1:
             return JsonResponse({'status': 'error', 'message': 'Job title is required'})
-        try:
-            res = model.generate_content(prompt)
-            skills = list()
 
-            txt = res.text.split('\n')
-            for line in txt:
-                line = line.strip().strip(',')
-                if line.startswith('"') and line.endswith('"'):
-                    skills.append(line.strip('"'))
-            return JsonResponse({'status': 'success', 'ai_skills': skills})
-        except Exception as err:
-            return JsonResponse({'status': 'error', 'message': str(err)})
+        result = ai.generate_skills(job_title)
+        return JsonResponse(result)
 
 
 # ==============
@@ -138,6 +94,35 @@ def extract_links(request):
     return links
 
 
+def extract_education(request):
+    """Extract experience data from the request."""
+    educations = []
+    for key in request.POST:
+        if key.startswith("edu_ecole"):
+            edu_index = key.split("_")[-1]  # Extract experience index
+            edu_ecole = request.POST.get(f"edu_ecole_{edu_index}", "")
+            edu_diplome = request.POST.get(f"edu_diplome_{edu_index}", "")
+            edu_start_date = request.POST.get(f"edu_start_date_{edu_index}", "")
+            edu_end_date = request.POST.get(f"edu_end_date_{edu_index}", "")
+            edu_ville = request.POST.get(f"edu_ville_{edu_index}", "")
+            edu_description = request.POST.get(f"edu_description_{edu_index}", "")
+
+            edu_desc_as_list = request.POST.get(f"edu_desc_aslist_{edu_index}", "")
+            if edu_desc_as_list == "1":
+                edu_description = edu_description.split('\r\n')
+
+            if edu_ecole and edu_diplome:
+                educations.append({
+                    'edu_ecole': edu_ecole,
+                    'edu_diplome': edu_diplome,
+                    'edu_start_date': edu_start_date,
+                    'edu_end_date': edu_end_date,
+                    'edu_ville': edu_ville,
+                    'edu_description': edu_description
+                })
+    return educations
+
+
 def extract_experience(request):
     """Extract experience data from the request."""
     experiences = []
@@ -151,7 +136,7 @@ def extract_experience(request):
             exp_ville = request.POST.get(f"exp_ville_{exp_index}", "")
             exp_description = request.POST.get(f"exp_description_{exp_index}", "")
 
-            exp_desc_as_list = request.POST.get(f"exp_desc_as_list_{exp_index}", "")
+            exp_desc_as_list = request.POST.get(f"exp_desc_aslist_{exp_index}", "")
             if exp_desc_as_list == "1":
                 exp_description = exp_description.split('\r\n')
 
@@ -189,6 +174,7 @@ def create_cv(request):
             form_data['skills'] = extract_skills(request)
             form_data['links'] = extract_links(request)
             form_data['experiences'] = extract_experience(request)
+            form_data['educations'] = extract_education(request)
 
             print('-' * 100)
             for key, value in form_data.items():

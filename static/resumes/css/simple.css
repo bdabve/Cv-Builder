@@ -86,6 +86,10 @@ ul li::before {
     margin: .5em 0;
 }
 
+.small-title span.employee {
+    text-transform: uppercase;
+}
+
 .date {
     color: #878d8e;
     margin: .5em 0;
@@ -109,7 +113,11 @@ ul li::before {
     font-weight: bold;
 }
 
-#profile p, #formation p, #experience p, #experience ul {
+#profile p, 
+#formation p, 
+#experience p, 
+#experience ul,
+#formation ul{
     padding-left: 3em;
 }
 

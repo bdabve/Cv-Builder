@@ -87,39 +87,39 @@ class CVForm(forms.Form):
     )
     # --------------------------------------------------------------------
     # Education
-    edu_ecole = forms.CharField(
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Ecole"}),
-        max_length=200,
-        label="Ecole"
-    )
-    edu_diplome = forms.CharField(
-        widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Diplôme"}),
-        max_length=200,
-        label="Diplôme"
-    )
+    # edu_ecole = forms.CharField(
+        # widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Ecole"}),
+        # max_length=200,
+        # label="Ecole"
+    # )
+    # edu_diplome = forms.CharField(
+        # widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Diplôme"}),
+        # max_length=200,
+        # label="Diplôme"
+    # )
 
     # -- Start-date, End-date
-    edu_start_date = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date', "class": "form-control"}),
-        label="Start Date", required=False)
+    # edu_start_date = forms.DateField(
+        # widget=forms.DateInput(attrs={'type': 'date', "class": "form-control"}),
+        # label="Start Date", required=False)
 
-    edu_end_date = forms.DateField(
-        widget=forms.DateInput(attrs={"class": "form-control", 'type': 'date'}), label="End Date", required=False)
+    # edu_end_date = forms.DateField(
+        # widget=forms.DateInput(attrs={"class": "form-control", 'type': 'date'}), label="End Date", required=False)
 
     # -- Ville, Description
-    edu_ville = forms.CharField(
-        widget=forms.TextInput(attrs={"class": "form-control", "list": "detailsVille", "placeholder": "Ville"}),
-        max_length=200, label="Ville", required=False)
+    # edu_ville = forms.CharField(
+        # widget=forms.TextInput(attrs={"class": "form-control", "list": "detailsVille", "placeholder": "Ville"}),
+        # max_length=200, label="Ville", required=False)
 
-    edu_description = forms.CharField(
-        widget=forms.Textarea(attrs={
-            'placeholder': 'Par exemple: diplôme avec mention trés bien.',
-            "rows": 5,
-            "class": "form-control"
-        }),
-        label="Déscription",
-        required=False
-    )
+    # edu_description = forms.CharField(
+        # widget=forms.Textarea(attrs={
+            # 'placeholder': 'Par exemple: diplôme avec mention trés bien.',
+            # "rows": 5,
+            # "class": "form-control"
+        # }),
+        # label="Déscription",
+        # required=False
+    # )
     # ---------------------------------------------------------------------
     # Experience fields
     # exp_post_title = forms.CharField(

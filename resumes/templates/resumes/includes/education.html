@@ -1,0 +1,176 @@
+<div class="row mb-3 border-bottom border-3 border-secondary">
+    <div class="col">
+        <p class="lead">Education #1</p>
+    </div>
+</div><!-- remove btn row -->
+
+<div class="row mb-3">
+    <div class="col">
+        <label class="form-label" for="edu_ecole_0">
+            Ecole
+        </label>
+        <input class="form-control" id="edu_ecole_0" 
+               type="text" 
+               name="edu_ecole_0" 
+               placeholder="Ecole">
+    </div>
+    <div class="col">
+        <label class="form-label" for="edu_diplome_0">Diplôme</label>
+        <input class="form-control diploma" id="edu_diplome_0" 
+               type="text" 
+               name="edu_diplome_0" 
+               placeholder="Diplôme">
+    </div>
+</div><!-- Education Ecole and Diplome -->
+
+<div class="row mb-3">
+    <div class="col">
+        <label class="form-label" for="edu_start_date_0">Date de début</label>
+        <div class="d-flex justify-content-between">
+            <input class="form-control" id="edu_start_date_0" 
+                   type="date" 
+                   name="edu_start_date_0">
+            <input class="form-control" id="edu_end_date_0" 
+                   type="date" 
+                   name="edu_end_date_0">
+        </div>
+    </div>
+    <div class="col">
+        <label class="form-label" for="edu_ville_0">Ville</label>
+        <input class="form-control" id="edu_ville_0" 
+               type="text" 
+               name="edu_ville_0" 
+               placeholder="Ville">
+    </div>
+</div><!-- start-date & end-date & ville -->
+
+<div class="row mb-3">
+    <div class="col">
+        <div class="d-flex align-items-center justify-content-between mb-3 border-top pt-2">
+            <label class="form-label" for="edu_description_0">Description</label>
+
+            <div class="form-check">
+                <input class="form-check-input" id="edu_desc_aslist_0"
+                       type="checkbox" 
+                       name="edu_desc_aslist_0"
+                       value="1">
+                <label class="form-check-label" for="edu_desc_aslist_0">Display as a list</label>
+            </div>
+
+            <button class="btn btn-sm btn-info ai-edu-desc">
+                <i class="bi bi-robot"></i> AI Generate Description
+            </button>
+
+        </div><!-- label description & display as a list -->
+
+        <textarea class="form-control" id="edu_description_0"
+                  name="edu_description_0" rows="6"
+                  placeholder="e.g Mention Trés bien."></textarea>
+    </div>
+</div><!-- Education Description -->
+
+<!-- Accordion for Education -->
+<div class="accordion shadow" id="education-accordion" style="display: none;">
+    <div class="accordion-item"> 
+        <h2 class="accordion-header" id="edu_head_1">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#edu_1" aria-expanded="true" aria-controles="edu_1">
+                Education #2
+            </button>
+        </h2>
+
+        <div id="edu_1" class="accordion-collapse collapse show" aria-labeledby="edu_head_1"
+             data-bs-parent="#education-accordion">
+
+            <div class="accordion-body">
+
+                <div class="row mb-3 border-bottom border-3 border-secondary">
+                    <div class="col">
+                        <p class="lead">Education #2</p>
+                    </div>
+                    <div class="col">
+                        <button type="button" 
+                                class="remove-accordion-item btn btn-sm btn-outline-danger float-end">
+                            <i class="bi bi-trash3"></i>
+                        </button>
+                    </div>
+                </div><!-- remove button -->
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-label" for="edu_ecole_1">
+                            Ecole
+                        </label>
+                        <input class="form-control" id="edu_ecole_1" 
+                               type="text" 
+                               name="edu_ecole_1" 
+                               placeholder="Ecole">
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="edu_diplome_1">Diplôme</label>
+                        <input class="form-control diploma" id="edu_diplome_1" 
+                               type="text" 
+                               name="edu_diplome_1" 
+                               placeholder="Diplôme">
+                    </div>
+                </div><!-- Education Poste & Employée -->
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <label class="form-label" for="edu_start_date_1">Date de début</label>
+                        <div class="d-flex justify-content-between">
+                            <input class="form-control" id="edu_start_date_1" 
+                                   type="date" 
+                                   name="edu_start_date_1">
+                            <input class="form-control" id="edu_end_date_1" 
+                                   type="date" 
+                                   name="edu_end_date_1">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label class="form-label" for="edu_ville_1">Ville</label>
+                        <input class="form-control" id="edu_ville_1" 
+                               type="text" 
+                               name="edu_ville_1" 
+                               placeholder="Ville">
+                    </div>
+                </div><!-- Education start-date & end-date & Ville -->
+
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="d-flex align-items-center justify-content-between mb-3 border-top pt-2">
+                            <label class="form-label" for="edu_description_1">Description</label>
+                            <div class="form-check">
+                                <input class="form-check-input" id="edu_desc_aslist_1"
+                                       type="checkbox" 
+                                       name="edu_desc_aslist_1"
+                                       value="1">
+                                <label class="form-check-label" for="edu_desc_aslist_1">
+                                    Display as a list
+                                </label>
+                                
+                                <button class="btn btn-sm btn-info ai-edu-desc">
+                                    <i class="bi bi-robot"></i> AI Generate Description
+                                </button>
+
+                            </div>
+                        </div><!-- Edu Desc label & edu-as-list -->
+                        <textarea class="form-control" id="edu_description_1"
+                                  name="edu_description_1" rows="6"
+                                  placeholder="e.g Mention Trés bien."></textarea>
+                    </div>
+                </div><!-- Education Description -->
+
+            </div><!-- accordion-body -->
+        </div><!-- edu_1 collapse -->
+    </div><!-- Accordion-item -->
+</div><!-- Accordion education-container -->
+
+<!-- Add New Education Accordion Item -->
+<div class="row">
+    <div class="col">
+        <button id="add-education" class="btn btn-link my-2 float-end">
+            <i class="bi bi-plus"></i> Add Education
+        </button>
+    </div>
+</div>
