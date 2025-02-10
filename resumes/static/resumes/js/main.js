@@ -46,6 +46,12 @@ $(document).ready(function() {
     $("#ai-profile").on("click", function(e) {
         e.preventDefault();
         let jobTitle = $('#id_poste').val();
+
+        // Display the spinner
+        $(this).prop("disabled", true);
+        $("#ai-profile-spinner").removeClass("d-none")
+        $("#id_profile").val('');
+
         if (jobTitle.length > 2) {
             $.ajax({
                 url: '/resumes/ai-profile/',  // The URL of your Django view
@@ -59,6 +65,7 @@ $(document).ready(function() {
                 },
                 success: function(response) {
                     if ( response.status === "success" ) {
+                        $("#loading-spinner").addClass("d-none")
                         $('#id_profile').val(response.ai_profile)
                     } else {
                         alert(response.message)
@@ -66,6 +73,11 @@ $(document).ready(function() {
                 },
                 error: function(xhr, status, error) {
                     console.log('Error:', error);
+                },
+                complete: function() {
+                    // Enable ai-profile-button and hide spinner after request is done
+                    $("#ai-profile").prop("disabled", false);
+                    $("#ai-profile-spinner").addClass("d-none");
                 }
             });
         } else {
@@ -127,10 +139,17 @@ $(document).ready(function() {
         console.log(commonSkills)
     });
 
-    // AI
-    $("#ai-poste-skills").on("click", function(e) {
+    // AI Generate Skills
+    $("#ai-skills").on("click", function(e) {
         e.preventDefault();
         let jobTitle = $('#id_poste').val();
+
+        // Disable Button and display Spinner
+        let btn = $(this)
+        let spinner = $(this).find('.ai-skills-spinner');
+        btn.prop('disabled', true);
+        spinner.removeClass("d-none");
+
         if (jobTitle.length > 2) {
             $.ajax({
                 url: '/resumes/ai-skills/',  // The URL of your Django view
@@ -157,6 +176,11 @@ $(document).ready(function() {
                 },
                 error: function(xhr, status, error) {
                     console.log('Status', status, 'Error:', error);
+                },
+                complete: function() {
+                    // Enable Button and hide Spinner
+                    btn.prop('disabled', false);
+                    spinner.addClass("d-none");
                 }
             });
         } else {
@@ -214,112 +238,167 @@ $(document).ready(function() {
     // Add Experience
     $('#add-experience').click(function(e){
         e.preventDefault();
-        if (experienceCount == 1) {
-            $('#experience-accordion').show()
-        } else {
-            let newExperience = $(`
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="exp_head_${experienceCount}">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#exp_${experienceCount}" aria-expanded="false"
-                                aria-controls="collapseExp${experienceCount}">
-                            Expérience #${experienceCount + 1}
-                        </button>
-                    </h2>
-                    <div id="exp_${experienceCount}"
-                         class="accordion-collapse collapse" aria-labelledby="exp_head_${experienceCount}"
-                         data-bs-parent="#experience-accordion">
-                        <div class="accordion-body">
+        let newExperience = $(`
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="exp_head_${experienceCount}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#exp_${experienceCount}" aria-expanded="false"
+                            aria-controls="collapseExp${experienceCount}">
+                        Expérience #${experienceCount + 1}
+                    </button>
+                </h2>
+                <div id="exp_${experienceCount}"
+                     class="accordion-collapse collapse" aria-labelledby="exp_head_${experienceCount}"
+                     data-bs-parent="#experience-accordion">
+                    <div class="accordion-body">
 
-                            <div class="row mb-3 border-bottom border-3 border-secondary">
+                        <div class="row mb-3 border-bottom border-3 border-secondary">
+                            <div class="col">
+                                <p class="lead">Expérience #${experienceCount + 1}</p>
+                            </div>
+                            <div class="col">
                                 <div class="col">
-                                    <p class="lead">Expérience #${experienceCount + 1}</p>
+                                    <button id="remove-accordion-exp" type="button"
+                                            class="remove-accordion-item btn btn-sm btn-outline-danger float-end">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
                                 </div>
-                                <div class="col">
-                                    <div class="col">
-                                        <button id="remove-accordion-exp" type="button"
-                                                class="remove-accordion-item btn btn-sm btn-outline-danger float-end">
-                                            <i class="bi bi-trash3"></i>
-                                        </button>
+                            </div>
+                        </div><!-- end of remove button row -->
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label class="form-label" for="exp_post_title_${experienceCount}">Poste</label>
+                                <input class="form-control" id="exp_post_title_${experienceCount}"
+                                       type="text"
+                                       placeholder="Poste title"
+                                       name="exp_post_title_${experienceCount}">
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for="exp_employee_${experienceCount}">Employée</label>
+                                <input class="form-control" id="exp_employee_${experienceCount}"
+                                       type="text"
+                                       placeholder="Employee"
+                                       name="exp_employee_${experienceCount}">
+                            </div>
+                        </div><!-- Poste and Employée -->
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label class="form-label" for="exp_start_date_${experienceCount}">Date de début</label>
+                                <div class="d-flex justify-content-between">
+                                    <input class="form-control" id="exp_start_date_${experienceCount}"
+                                           type="date"
+                                           name="exp_start_date_${experienceCount}">
+                                    <input class="form-control" id="exp_end_date_${experienceCount}"
+                                           type="date"
+                                           name="exp_end_date_${experienceCount}">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for="exp_ville_${experienceCount}">Ville</label>
+                                <input class="form-control" id="exp_ville_${experienceCount}"
+                                       type="text"
+                                       placeholder="Ville"
+                                       name="exp_ville_${experienceCount}">
+                            </div>
+                        </div><!-- Exp Date -->
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="d-flex align-items-center justify-content-between mb-3 border-top pt-2">
+                                    <label class="form-label" for="exp_description_${experienceCount}">Description</label>
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" id="exp_desc_aslist_${experienceCount}"
+                                               type="checkbox" name="exp_desc_aslist_${experienceCount}" value="1">
+                                        <label class="form-check-label" for="exp_desc_aslist_${experienceCount}">
+                                            Display as a list
+                                        </label>
                                     </div>
-                                </div>
-                            </div><!-- end of remove button row -->
 
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <label class="form-label" for="exp_post_title_${experienceCount}">Poste</label>
-                                    <input class="form-control" id="exp_post_title_${experienceCount}"
-                                           type="text"
-                                           placeholder="Poste title"
-                                           name="exp_post_title_${experienceCount}">
+                                    <button class="btn btn-sm btn-info ai-exp-desc">
+                                        <i class="bi bi-robot"></i> AI Generate Description
+                                    </button>
                                 </div>
-                                <div class="col">
-                                    <label class="form-label" for="exp_employee_${experienceCount}">Employée</label>
-                                    <input class="form-control" id="exp_employee_${experienceCount}"
-                                           type="text"
-                                           placeholder="Employee"
-                                           name="exp_employee_${experienceCount}">
-                                </div>
-                            </div><!-- Poste and Employée -->
 
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <label class="form-label" for="exp_start_date_${experienceCount}">Date de début</label>
-                                    <div class="d-flex justify-content-between">
-                                        <input class="form-control" id="exp_start_date_${experienceCount}"
-                                               type="date"
-                                               name="exp_start_date_${experienceCount}">
-                                        <input class="form-control" id="exp_end_date_${experienceCount}"
-                                               type="date"
-                                               name="exp_end_date_${experienceCount}">
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="exp_ville_${experienceCount}">Ville</label>
-                                    <input class="form-control" id="exp_ville_${experienceCount}"
-                                           type="text"
-                                           placeholder="Ville"
-                                           name="exp_ville_${experienceCount}">
-                                </div>
-                            </div><!-- Exp Date -->
+                                <textarea class="form-control" id="exp_description_${experienceCount}"
+                                          name="exp_description_${experienceCount}" rows="6"
+                                          placeholder="Enter Description for this post"></textarea>
+                            </div>
+                        </div><!-- Exp Description -->
 
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <div class="d-flex justify-content-between">
-                                        <label class="form-label" for="exp_description_${experienceCount}">Description</label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" id="exp_desc_aslist_${experienceCount}"
-                                                   type="checkbox"
-                                                   name="exp_desc_aslist_${experienceCount}"
-                                                   value="1">
-                                            <label class="form-check-label" for="exp_desc_aslist_${experienceCount}">
-                                                Display as a list
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <textarea class="form-control" id="exp_description_${experienceCount}"
-                                              name="exp_description_${experienceCount}" rows="6"
-                                              placeholder="Enter Description for this post"></textarea>
-                                </div>
-                            </div><!-- Exp Description -->
-
-                        </div><!-- accordion-body -->
-                    </div><!-- collapse -->
-                </div><!-- accordion-item -->
-            `);
-            $("#experience-accordion").append(newExperience);
-        }
+                    </div><!-- accordion-body -->
+                </div><!-- collapse -->
+            </div><!-- accordion-item -->
+        `);
+        $("#experience-accordion").append(newExperience).show();
         experienceCount++;
     });
 
+    // Generate AI Description for Experience
+    $(document).on("click", ".ai-exp-desc", function(e) {
+        e.preventDefault();
+        let jobTitle = $(this).closest(".row").prev().prev().find(".poste-title").val();
+        let desc_textarea = $(this).closest(".row").find("textarea");
+
+        // Disable Button and display Spinner
+        let btn = $(this)
+        let spinner = $(this).find('.ai-exp-spinner');
+        btn.prop('disabled', true);
+        spinner.removeClass("d-none");
+
+        if (!jobTitle) {
+                alert("Please enter a diploma before generating a description.");
+                return;
+            }
+
+        if (jobTitle.length > 2) {
+            $.ajax({
+                url: '/resumes/ai-exp-desc/',  // The URL of your Django view
+                method: 'POST',
+                data: {
+                    job_title: jobTitle,  // The key you're sending to the Django view
+                    //csrfmiddlewaretoken: '{{ csrf_token }}',  // CSRF token for security
+                },
+                beforeSend: function(xhr) {
+                    // Add CSRF token
+                    xhr.setRequestHeader('X-CSRFToken', getCSRFToken());
+                },
+                success: function(response) {
+                    if ( response.status == 'success' ) {
+                        desc_textarea.val(response.ai_exp_desc)
+                    } else {
+                        alert('Error getting description for education', response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.log('[-] Error', error)
+                },
+                complete: function(){
+                    // Enable Button and hide Spinner
+                    btn.prop('disabled', false);
+                    spinner.addClass("d-none");
+                }
+            });
+        } else {
+            $('#id_poste').focus()
+        }
+    });
+
     // ---------------------------------------------------------------------
-    //
+    // AI Education Description
     $(document).on("click", ".ai-edu-desc", function(e) {
         e.preventDefault();
         let diploma = $(this).closest(".row").prev().prev().find(".diploma").val();
         let desc_textarea = $(this).closest(".row").find("textarea");
 
-        console.log(diploma)
+        // Disable Button and display Spinner
+        let btn = $(this)
+        let spinner = $(this).find('.ai-edu-spinner');
+        spinner.removeClass("d-none");
+        btn.prop('disabled', true);
+
         if (!diploma) {
                 alert("Please enter a diploma before generating a description.");
                 return;
@@ -339,7 +418,6 @@ $(document).ready(function() {
                 },
                 success: function(response) {
                     if ( response.status == 'success' ) {
-                        console.log(response)
                         desc_textarea.val(response.ai_edu_desc)
                     } else {
                         alert('Error getting description for education', response.message);
@@ -347,115 +425,129 @@ $(document).ready(function() {
                 },
                 error: function(xhr, status, error) {
                     console.log('[-] Error', error)
+                },
+                complete: function(){
+                    // Enable Button and hide Spinner
+                    btn.prop('disabled', false);
+                    spinner.addClass("d-none");
                 }
             });
         } else {
             $('#id_poste').focus()
         }
     });
+
     // Add Education
     $('#add-education').click(function(e){
         e.preventDefault();
-        if (educationCount == 1) {
-            $('#education-accordion').show()
-        } else {
-            let newEducation = $(`
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="edu_head_${educationCount}">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#edu_${educationCount}" aria-expanded="true"
-                                aria-controles="#edu_${educationCount}">
+        let newEducation = $(`
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="edu_head_${educationCount}">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#edu_${educationCount}" aria-expanded="true"
+                            aria-controles="#edu_${educationCount}">
 
-                            Education #${educationCount + 1}
-                        </button>
-                    </h2>
-                    <div id="edu_${educationCount}" class="accordion-collapse collapse"
-                         aria-labeledby="edu_head_${educationCount}" data-bs-parent="#education-accordion">
-                        <div class="accordion-body">
+                        Education #${educationCount + 1}
+                    </button>
+                </h2>
+                <div id="edu_${educationCount}" class="accordion-collapse collapse"
+                     aria-labeledby="edu_head_${educationCount}" data-bs-parent="#education-accordion">
+                    <div class="accordion-body">
 
-                            <div class="row mb-3 border-bottom border-3 border-secondary">
-                                <div class="col">
-                                    <p class="lead">Education #${educationCount + 1}</p>
+                        <div class="row mb-3 border-bottom border-3 border-secondary">
+                            <div class="col">
+                                <p class="lead">Education #${educationCount + 1}</p>
+                            </div>
+                            <div class="col">
+                                <button id="remove-accordion-edu" type="button"
+                                        class="remove-accordion-item btn btn-sm btn-outline-danger float-end">
+                                    <i class="bi bi-trash3"></i>
+                                </button>
+                            </div>
+                        </div><!-- remove button row -->
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label class="form-label" for="edu_ecole_${educationCount}">
+                                    Ecole
+                                </label>
+                                <input class="form-control" id="edu_ecole_${educationCount}"
+                                       type="text"
+                                       name="edu_ecole_${educationCount}"
+                                       placeholder="Ecole">
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for="edu_diplome_${educationCount}">Diplôme</label>
+                                <input class="form-control diploma" id="edu_diplome_${educationCount}"
+                                       type="text"
+                                       name="edu_diplome_${educationCount}"
+                                       placeholder="Diplôme">
+                            </div>
+                        </div><!-- edu Ecole & Diploma -->
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label class="form-label" for="edu_start_date_${educationCount}">Date de début</label>
+                                <div class="d-flex justify-content-between">
+                                    <input class="form-control" id="edu_start_date_${educationCount}"
+                                           type="date"
+                                           name="edu_start_date_${educationCount}">
+                                    <input class="form-control" id="edu_end_date_${educationCount}"
+                                           type="date"
+                                           name="edu_end_date_${educationCount}">
                                 </div>
-                                <div class="col">
-                                    <button id="remove-accordion-edu" type="button"
-                                            class="remove-accordion-item btn btn-sm btn-outline-danger float-end">
-                                        <i class="bi bi-trash3"></i>
+                            </div>
+                            <div class="col">
+                                <label class="form-label" for="edu_ville_${educationCount}">Ville</label>
+                                <input class="form-control" id="edu_ville_${educationCount}"
+                                       type="text"
+                                       name="edu_ville_${educationCount}"
+                                       placeholder="Ville">
+                            </div>
+                        </div><!-- edu Date & Ville -->
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="d-flex align-items-center justify-content-between mb-3 border-top pt-2">
+                                    <label class="form-label" for="edu_description_${educationCount}">Description</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" id="edu_desc_aslist_${educationCount}"
+                                               type="checkbox"
+                                               name="edu_desc_aslist_${educationCount}"
+                                               value="1">
+                                        <label class="form-check-label" for="edu_desc_aslist_${educationCount}">
+                                            Display as a list
+                                        </label>
+                                    </div>
+
+                                    <button class="btn btn-sm btn-info ai-edu-desc">
+                                        <i class="bi bi-robot"></i> AI Generate Description
                                     </button>
                                 </div>
-                            </div><!-- remove button row -->
+                                <textarea class="form-control" id="edu_description_${educationCount}"
+                                          name="edu_description_${educationCount}" rows="6"
+                                          placeholder="e.g Mention Trés bien."></textarea>
+                            </div>
+                        </div><!-- Exp Description -->
 
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <label class="form-label" for="edu_ecole_${educationCount}">
-                                        Ecole
-                                    </label>
-                                    <input class="form-control" id="edu_ecole_${educationCount}"
-                                           type="text"
-                                           name="edu_ecole_${educationCount}"
-                                           placeholder="Ecole">
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="edu_diplome_${educationCount}">Diplôme</label>
-                                    <input class="form-control diploma" id="edu_diplome_${educationCount}"
-                                           type="text"
-                                           name="edu_diplome_${educationCount}"
-                                           placeholder="Diplôme">
-                                </div>
-                            </div><!-- edu Ecole & Diploma -->
-
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <label class="form-label" for="edu_start_date_${educationCount}">Date de début</label>
-                                    <div class="d-flex justify-content-between">
-                                        <input class="form-control" id="edu_start_date_${educationCount}"
-                                               type="date"
-                                               name="edu_start_date_${educationCount}">
-                                        <input class="form-control" id="edu_end_date_${educationCount}"
-                                               type="date"
-                                               name="edu_end_date_${educationCount}">
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <label class="form-label" for="edu_ville_${educationCount}">Ville</label>
-                                    <input class="form-control" id="edu_ville_${educationCount}"
-                                           type="text"
-                                           name="edu_ville_${educationCount}"
-                                           placeholder="Ville">
-                                </div>
-                            </div><!-- edu Date & Ville -->
-
-                            <div class="row mb-3">
-                                <div class="col">
-                                    <div class="d-flex align-items-center justify-content-between mb-3 border-top pt-2">
-                                        <label class="form-label" for="edu_description_${educationCount}">Description</label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" id="edu_desc_aslist_${educationCount}"
-                                                   type="checkbox"
-                                                   name="edu_desc_aslist_${educationCount}"
-                                                   value="1">
-                                            <label class="form-check-label" for="edu_desc_aslist_${educationCount}">
-                                                Display as a list
-                                            </label>
-                                        </div>
-
-                                        <button class="btn btn-sm btn-info ai-edu-desc">
-                                            <i class="bi bi-robot"></i> AI Generate Description
-                                        </button>
-                                    </div>
-                                    <textarea class="form-control" id="edu_description_${educationCount}"
-                                              name="edu_description_${educationCount}" rows="6"
-                                              placeholder="e.g Mention Trés bien."></textarea>
-                                </div>
-                            </div><!-- Exp Description -->
-
-                        </div><!-- accordion-body -->
-                    </div><!-- edu_2 collapse -->
-                </div><!-- accordion-item -->
-            `);
-            $("#education-accordion").append(newEducation);
-        }
+                    </div><!-- accordion-body -->
+                </div><!-- edu_2 collapse -->
+            </div><!-- accordion-item -->
+        `);
+        $("#education-accordion").append(newEducation).show();
         educationCount++;
     });
 
+    // ---------------------------------------------------------------------
+    // CV Templates
+    $(".template-card").click(function () {
+        // Remove highlight from all cards
+        $(".template-card").removeClass("border border-2 border-primary shadow-lg");
+
+        // Highlight the selected card
+        $(this).addClass("border border-2 border-primary shadow-lg");
+
+        // Set the hidden input value to the selected template filename
+        $("#selected-template").val($(this).find("input").val());
+    });
 });

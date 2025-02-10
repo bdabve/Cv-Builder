@@ -10,7 +10,7 @@
 
 <body>
     <div id="container">
-        <div class="card m-auto my-5" style="width: 50rem;">
+        <div class="card m-auto my-5" style="width: 45rem;">
             <!-- Card Header -->
             <div class="card-header text-center">
                 <h1>Create Your CV</h1>
@@ -20,6 +20,47 @@
             <div class="card-body">
                 <form id="form" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
+
+                    <!-- Choose template -->
+                    <div class="d-grid">
+                        <button class="btn btn-primary mb-3" type="button" 
+                                data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" 
+                                aria-controls="offcanvasScrolling">
+                            Choose Templates
+                        </button>
+                    </div>
+
+                    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" 
+                         tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Templates for cv</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+                        </div>
+                        <div class="offcanvas-body">
+                            <p class="lead text-center">Choose a CV Template:</p>
+                            <div class="d-flex flex-column align-items-center">
+                        
+                                {% for template in templates %}
+                                <div class="mb-3">
+                                    <label class="card template-card" style="width:18rem;">
+                                        <input type="radio" name="cv_template" 
+                                               value="{{ template.filename }}" class="template-radio d-none">
+                                
+                                        <div class="card shadow-sm">
+                                            <img src="{{ template.image_url }}" 
+                                                 class="card-img-top template-img" alt="Template Preview">
+                                            <div class="card-body text-center">
+                                                <h6 class="card-title">{{ template.name }}</h6>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <input type="hidden" id="selected-template" name="selected_template">
+                        </div>
+                    </div>
 
                     <!-- Hendle Errors -->
                     {% if form.errors %}
@@ -34,10 +75,8 @@
 
                     <!-- ===================== Accordion de merde ================================================ -->
                     <div class="accordion accordion-flush" id="mainAccordion">
-
                         
                         <!-- mainInformation -->
-                      
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="information">
                                 <button class="accordion-button fs-5" 
@@ -52,16 +91,15 @@
                                 aria-labelledby="information" data-bs-parent="#mainAccordion">
                                 <div class="accordion-body">
 
-                                    <!-- Info Container -->
                                     {% include "resumes/includes/personal_info.html" %}
 
                                 </div><!-- accordion body -->
                             </div><!-- id collapse -->
                         </div><!-- end accordion-item -->
 
+                        <!-- =========================================================== -->
                       
-                        <!-- =========== Education ================================================ -->
-                      
+                        <!-- Education -->
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="education">
                                 <button class="accordion-button collapsed fs-5" 
@@ -75,8 +113,9 @@
                             <div id="collapseEducation" class="accordion-collapse collapse" 
                                 aria-labelledby="education" data-bs-parent="#mainAccordion">
                                 <div class="accordion-body">
-                                    <!-- Education Container -->
+
                                     {% include "resumes/includes/education.html" %}
+
                                 </div><!-- Education Accordion Body -->
                             </div><!-- ID Education Collapse -->
                         </div><!-- Education item -->
@@ -84,8 +123,8 @@
                       
                         <!-- ======= Languages =================================================== -->
                       
+                        <!-- Languages -->
                         <div class="accordion-item">
-                        
                             <h2 class="accordion-header" id="languages">
                                 <button class="accordion-button collapsed fs-5" 
                                         type="button" data-bs-toggle="collapse" data-bs-target="#collapseLang" 
@@ -98,11 +137,11 @@
                             <div id="collapseLang" class="accordion-collapse collapse" 
                                 aria-labelledby="languages" data-bs-parent="#mainAccordion">
                                 <div class="accordion-body">
-                                    <!-- langugages Container -->
+
                                     {% include "resumes/includes/languages.html" %}
+
                                 </div>
                             </div><!-- ID Collapse -->
-
                         </div><!-- language accordion-item -->
                     
                       
@@ -205,11 +244,10 @@
                             <button type="submit" class="fs-5 btn btn-primary submit-btn">Generate CV</button>
                         </div>
                     </div>
+
                 </form>
             </div><!--end of card-body -->
-
-        </div><!-- end of card -->
-
+        </div><!-- end of form card -->
     </div><!-- end of container -->
 
     <script src='{% static "resumes/js/jQuery-3.7.1.js" %}'></script>

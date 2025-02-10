@@ -13,13 +13,11 @@
   margin: 1cm;
 }
 
-/*html {*/
-/*}*/
-
 body {
     font-family: 'TT Condensed';
     margin: 0;
-    font-size: 9pt;
+    font-size: 10pt;
+    line-height: 1.6;
 }
 
 header {
@@ -41,15 +39,16 @@ h1, h2 {
 }
 
 header h1 {
-    font-size: 30pt;
+    font-size: 35pt;
     font-weight: bold;
     margin: 2mm 0;
 }
 
 header h2 {
-    font-size: 14pt;
+    font-size: 20pt;
     font-weight: normal;
     margin: 2mm 0;
+    text-transform: capitalize;
 }
 
 img {
@@ -83,7 +82,8 @@ ul li::before {
 .small-title {
     font-size: 13px;
     font-weight: bold;
-    margin: .5em 0;
+    margin: 0;
+    font-size: 14pt;
 }
 
 .small-title span.employee {
@@ -92,8 +92,8 @@ ul li::before {
 
 .date {
     color: #878d8e;
-    margin: .5em 0;
-    /*font-size: 11pt;*/
+    margin: 0;
+    font-size: 12pt;
 }
 
 #container {
@@ -113,12 +113,8 @@ ul li::before {
     font-weight: bold;
 }
 
-#profile p, 
-#formation p, 
-#experience p, 
-#experience ul,
-#formation ul{
-    padding-left: 3em;
+#right p {
+    padding-left: 10mm;
 }
 
 #right {
@@ -146,8 +142,4 @@ ul li::before {
 
 .language p:first-child::after {
     content: ':';
-}
-
-#formation p {
-    margin: .5mm 0;
 }

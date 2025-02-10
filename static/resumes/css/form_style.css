@@ -16,6 +16,15 @@ body {
 
 /* **************************************************************** */
 
+.template-card {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.template-card:hover {
+    transform: scale(1.05);
+}
+
 .common-skills {
     position: relative;
     display: flex;

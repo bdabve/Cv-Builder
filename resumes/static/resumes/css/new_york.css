@@ -1,0 +1,117 @@
+@page {
+  margin: 1cm;
+}
+
+html {
+    font-family: system-ui;
+}
+
+header {
+    position: absolute;
+    top: 0;
+    display: grid;
+    justify-items: center;
+    width: 100%;
+    height: 7cm;
+}
+
+header .personal-info {
+    display: flex;
+    justify-content: space-around;
+}
+
+h1 {
+    margin: 0;
+}
+
+h2 {
+    font-size: 16pt;
+    text-align: center;
+    margin: 6mm 0;
+}
+
+p {
+    margin: 3mm 0;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+img {
+    width: 100px;
+}
+
+#name {
+    text-transform: capitalize;
+}
+
+.personal-info h2, .personal-info p {
+    font-size: 12pt;
+    margin: 2mm 10mm;
+    text-transform: capitalize;
+}
+
+.container {
+    display: flex;
+    margin-top: 7cm;
+}
+
+#left {
+    flex: 1;
+    min-width: 7cm;
+    margin-right: 6mm;
+}
+
+#left h2::before {
+    content: "∘ ";
+    font-size: 1.2em;
+    color: black;
+}
+
+#left h2::after {
+    content: " ∘";
+    font-size: 1.2em;
+    color: black;
+}
+
+.contact {
+    text-align: center;
+}
+
+.language {
+    display: flex;
+    justify-content: space-around;
+    margin: 3mm 0;
+}
+
+.language p {
+    margin: 0;
+}
+
+.links p {
+    margin: 3mm 0;
+    text-decoration: underline;
+}
+
+#right {
+    min-width: 9cm;
+}
+
+#right h2 {
+    text-align: left;
+}
+
+.date {
+    color: #7a8599;
+    font-size: 12pt;
+    margin: 0;
+}
+
+.small-title {
+    font-size: 14pt;
+    font-weight: bold;
+    margin: 3mm 0;
+}

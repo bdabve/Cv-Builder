@@ -54,7 +54,6 @@ def generate_education_description(diploma):
     "A Bachelor's degree in Computer Science provides a strong foundation in programming, algorithms, and software engineering. Students develop expertise in data structures, databases, and system architecture. The program emphasizes problem-solving, analytical thinking, and hands-on experience with modern technologies, preparing graduates for roles in software development, data analysis, and IT consulting."
     """
     try:
-
         res = model.generate_content(prompt)
         ai_edu_desc = res.text
         return {'status': 'success', 'ai_edu_desc': ai_edu_desc}
@@ -97,6 +96,28 @@ def generate_skills(job_title):
         return {'status': 'error', 'message': str(err)}
 
 
+def generate_experience_description(job_title):
+    prompt = f"""
+    You are an expert in career development and job market analysis.
+    I am building a CV generator, and I need a **professional experience description** based on the given job title.
+
+    ### **Job Title:** **{job_title}**
+
+    - Provide a concise yet detailed description of key responsibilities, achievements, and impact.
+    - Focus on practical tasks, tools used, and measurable outcomes.
+    - Maintain a formal and professional tone suitable for a CV.
+    - Ensure the response is a single, well-structured paragraph.
+    - Detect the language of the job title and generate the response in the same language.
+    - Do **not** include unnecessary explanations, just return the experience description as a single string.
+    """
+    try:
+        res = model.generate_content(prompt)
+        ai_edu_desc = res.text
+        return {'status': 'success', 'ai_exp_desc': ai_edu_desc}
+    except Exception as err:
+        return {'status': 'error', 'message': str(err)}
+
+
 if __name__ == '__main__':
-    res = generate_skills('Programeur python')
+    res = generate_experience_description('Programeur python')
     print(res)

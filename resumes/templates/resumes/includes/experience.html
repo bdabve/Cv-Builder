@@ -6,14 +6,9 @@
 
 <div class="row mb-3">
     <div class="col">
-        <label class="form-label" for="exp_post_title_0">
-            Poste Title
-        </label>
-        <input class="form-control" id="exp_post_title_0" 
-               type="text" 
-               name="exp_post_title_0" 
-               placeholder="Poste Title"
-               required="true">
+        <label class="form-label" for="exp_post_title_0">Poste Title</label>
+        <input class="form-control poste-title" id="exp_post_title_0" type="text" name="exp_post_title_0" 
+               placeholder="Poste Title" required="true">
     </div>
     <div class="col">
         <label class="form-label" for="exp_employee_0">Employée</label>
@@ -50,17 +45,19 @@
 
 <div class="row mb-3">
     <div class="col">
-        <div class="d-flex justify-content-between">
+        <div class="d-flex align-items-center justify-content-between mb-3 border-top pt-2">
             <label class="form-label" for="exp_description_0">Description</label>
             <div class="form-check">
-                <input class="form-check-input" id="exp_desc_aslist_0"
-                       type="checkbox" 
-                       name="exp_desc_aslist_0"
-                       value="1">
-                <label class="form-check-label" for="exp_desc_aslist_0">
-                    Display as a list
-                </label>
+                <input class="form-check-input" id="exp_desc_aslist_0" type="checkbox" 
+                       name="exp_desc_aslist_0" value="1">
+                <label class="form-check-label" for="exp_desc_aslist_0">Display as a list</label>
             </div>
+
+            <button class="btn btn-sm btn-warning ai-exp-desc"
+                    data-bs-toggle="tooltip" title="Generate Description With IA" data-bs-placement="right">
+                <i class="bi bi-robot"></i> AI Generate Description&nbsp;
+                <span class="ai-exp-spinner spinner-border spinner-border-sm d-none" aria-hidden="true"></span>
+            </button>
         </div>
         <textarea class="form-control" id="exp_description_0"
                   name="exp_description_0" rows="6"
@@ -69,95 +66,6 @@
 </div><!-- Exp Description -->
 
 <div class="accordion shadow" id="experience-accordion" style="display: none;">
-    <div class="accordion-item"> 
-        <h2 class="accordion-header" id="exp_head_1">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#exp_1" aria-expanded="true" aria-controles="collapseExp1">
-                Expérience #2
-            </button>
-        </h2>
-        <div id="exp_1" class="accordion-collapse collapse show" aria-labeledby="collapseExp0"
-             data-bs-parent="experience-accordion">
-            <div class="accordion-body">
-
-                <div class="row mb-3 border-bottom border-3 border-secondary">
-                    <div class="col">
-                        <p class="lead">Expérience #2</p>
-                    </div>
-                    <div class="col">
-                        <button type="button" 
-                                class="remove-accordion-item btn btn-sm btn-outline-danger float-end">
-                            <i class="bi bi-trash3"></i>
-                        </button>
-                    </div>
-                </div><!-- remove btn row -->
-
-                <div class="row mb-3">
-                    <div class="col">
-                        <label class="form-label" for="exp_post_title_1">
-                            Poste Title
-                        </label>
-                        <input class="form-control" id="exp_post_title_1" 
-                               type="text" 
-                               name="exp_post_title_1" 
-                               placeholder="Poste Title"
-                               required="true">
-                    </div>
-                    <div class="col">
-                        <label class="form-label" for="exp_employee_1">Employée</label>
-                        <input class="form-control" id="exp_employee_1" 
-                               type="text" 
-                               name="exp_employee_1" 
-                               placeholder="Employée"
-                               required="True">
-                    </div>
-                </div><!-- Poste and Employée -->
-
-                <div class="row mb-3">
-                    <div class="col">
-                        <label class="form-label" for="exp_start_date_1">Date de début</label>
-                        <div class="d-flex justify-content-between">
-                            <input class="form-control" id="exp_start_date_1" 
-                                   type="date" 
-                                   name="exp_start_date_1" 
-                                   required="true">
-                            <input class="form-control" id="exp_end_date_1" 
-                                   type="date" 
-                                   name="exp_end_date_1"
-                                   required="true">
-                        </div>
-                    </div>
-                    <div class="col">
-                        <label class="form-label" for="exp_ville_1">Ville</label>
-                        <input class="form-control" id="exp_ville_1" 
-                               type="text" 
-                               name="exp_ville_1" 
-                               placeholder="Ville">
-                    </div>
-                </div><!-- Exp Date and Ville -->
-
-                <div class="row mb-3">
-                    <div class="col">
-                        <div class="d-flex justify-content-between">
-                            <label class="form-label" for="exp_description_1">Description</label>
-                            <div class="form-check">
-                                <input class="form-check-input" id="exp_desc_aslist_1"
-                                       type="checkbox" 
-                                       name="exp_desc_aslist_1"
-                                       value="1">
-                                <label class="form-check-label" for="exp_desc_aslist_1">
-                                    Display as a list
-                                </label>
-                            </div>
-                        </div>
-                        <textarea class="form-control" id="exp_description_1"
-                                  name="exp_description_1" rows="4"
-                                  placeholder="Enter Description for this post"></textarea>
-                    </div>
-                </div><!-- Exp Description -->
-            </div><!-- accordion-body -->
-        </div><!-- exp_1 collapse -->
-    </div><!-- accordion-item -->
 </div><!-- accordion experience-container -->
 
 <div class="row my-3">

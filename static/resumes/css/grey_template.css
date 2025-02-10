@@ -1,0 +1,102 @@
+@page {
+  margin: 1cm;
+}
+
+html {
+    font-family: system-ui;
+    font-size: 10pt;
+    line-height: 1.6;
+}
+
+header {
+    display: flex;
+    /*position: absolute;*/
+    /*top: 0;*/
+    padding-bottom: 5mm;
+    border-bottom: 2px solid #eeeeee;
+}
+
+h2 {
+    font-size: 18pt;
+    text-transform: capitalize;
+}
+
+p {
+    margin: 3mm 0;
+}
+
+ul {
+    padding: 0 25px;
+    list-style: none;
+}
+
+aside {
+    background: #ededed;
+    border-radius: 20px;
+    padding: 10px 20px;
+    color: #232323;
+    text-align: center;
+}
+
+img {
+  width: 120px;
+}
+
+#title {
+    margin: 5mm 0;
+    font-size: 30pt;
+    text-transform: capitalize;
+}
+
+#contact {
+    flex: 1;
+    min-width: 5cm;
+    text-align: center;
+}
+
+#content {
+    display: flex;
+    margin-top: 1cm;
+}
+
+#right {
+    flex: 1;
+    margin-left: 5mm;
+    min-width: 8cm;
+}
+
+#right aside {
+    margin-bottom: 2rem;
+}
+
+.language {
+    display: flex;
+    justify-content: space-between;
+    margin: 3mm 0;
+    padding: 0 18mm;
+    break-before: avoid;
+}
+
+.language p {
+    margin: 0;
+}
+
+.small-title {
+    background: #232323;
+    color: #ffffff;
+    padding: 7px 5px;
+    font-size: 13pt;
+}
+
+.date {
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+.link, .link-url {
+    color: blue;
+}
+
+#experience {
+    break-after: avoid;
+}

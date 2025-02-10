@@ -99,9 +99,12 @@
               <label class="form-label" for="{{ form.profile.id_for_label }}">
                   {{ form.profile.label }}
               </label>
+
               <button id="ai-profile" class="btn btn-outline-success btn-sm"
                       data-bs-toggle="tooltip" title="Generate Profile With IA" data-bs-placement="right">
-                  <i class="bi bi-robot"></i> Generate AI profile
+                
+                  <i class="bi bi-robot"></i> Generate AI profile&nbsp;
+                  <span id="ai-profile-spinner" class="spinner-border spinner-border-sm d-none" aria-hidden="true"></span>
               </button>
           </div>
           {{ form.profile }}

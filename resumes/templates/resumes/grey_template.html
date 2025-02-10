@@ -1,29 +1,48 @@
 {% load static %}
 {% load custom_filters %}
+
 <!DOCTYPE html>
 <html lang="en">
   <meta charset="UTF-8">
   <title>CV {{ data.first_name }} {{ data.last_name }}</title>
-  <link rel="stylesheet" href="{% static "resumes/css/simple.css"%}">
+  <link rel="stylesheet" href="{% static "resumes/css/grey_template.css"%}">
 
   <header>
-      {% if data.profile_image_url %}
-          <img src="{{ data.profile_image_url }}" alt="Profile Image">
-      {% endif %}
-      <div class="name-job">
-          <h1 id="title">{{ data.first_name }} {{ data.last_name }}</h1>
-          <h2 id="job">{{ data.poste }}</h2>
+      <div id="contact">
+          {% if data.profile_image_url %}
+              <img src="{{ data.profile_image_url }}" alt="Profile Image">
+          {% endif %}
+
+          <h2>{{ data.poste }}</h2>
+          {% if data.d_naissance %}<p>{{ data.d_naissance|date:"d/m/Y" }}</p>{% endif %}
+
+          <p>
+              {% if data.address %}{{ data.address }}{% endif %}<br>
+              {% if data.ville %}{{ data.ville }}{% endif %}
+              {% if data.code_postal %}, {{ data.code_postal }}{% endif %}<br>
+              {% if data.paye %}{{ data.paye }}{% endif %}
+          </p>
+
+          <p class="link">{{ data.email }}</p>
+          <p>{{ data.phone }}</p>
+          <p>{{ data.permis|default:"" }}</p>
+          <p>{{ data.sit_family|default:"" }}</p>
+      </div>
+
+      <div id="name-profile">
+          <h1 id="name">{{ data.first_name }} {{ data.last_name }}</h1>
+
+          <aside id="profile">
+              <h2><span class="icon">👤</span> Profile</h2>
+              <p>{{ data.profile }}</p>
+          </aside>
       </div>
   </header>
 
-  <div id="container">
-      <section id="right">
-          <div id="profile">
-              <h2><span class="icon">👤</span> Profile</h2>
-              <p>{{ data.profile }}</p>
-          </div><!-- end of profile -->
+  <div id="content">
 
-          <div id="formation">
+      <div id="left">
+          <div id="education">
               <h2><span class="icon">🎓</span> Formation</h2>
               {% for edu in data.educations %}
                   <p class="small-title">
@@ -68,42 +87,26 @@
                   {% endif %}
               {% endfor %}
           </div><!-- end of experience -->
-      </section><!-- end of right div -->
+      </div><!-- end of right div -->
 
-      <section id="left">
-          <div id="contact">
-              <h2>Contact</h2>
-              {% if data.d_naissance %}
-                  <p>📅 D.Naissance: {{ data.d_naissance}}</p>
-              {% endif %}
+      <section id="right">
 
-              <p>📍🗺️ {{ data.address|default:"" }}<br>{{ data.ville }}, {{ data.code_postal|default:"" }}<br>{{ data.paye }}</p>
-              <p class="link">✉️  {{ data.email }}</p>
-              <p>📞 {{ data.phone }}</p>
-
-              <p>{{ data.permis|default:"" }}</p>
-              <p>💍 {{ data.sit_family|default:"" }}</p>
-              <!--<p>🤝 Disponible</p>-->
-          </div><!-- Contact -->
-
-          <div id="lien">
+          <aside id="lien">
               <h2>Lien</h2>
               {% for link in data.links %}
-                  <p class="link-name">{{ link.name|default:"" }}</p>
+              <!--<p class="link-name">{{ link.name|default:"" }}</p>-->
                   <p class="link-url">{{ link.url|default:"" }}</p>
               {% endfor %}
-          </div>
+          </aside>
 
-          <div id="competence">
-            <h2>Competence</h2>
-            <ul>
-                {% for skill in data.skills %}
-                <li>{{ skill.skill }}<!--: {{ skill.niveau }} --></li>
-                {% endfor %}
-            </ul>
-          </div><!-- end of competence -->
+          <aside id="competence">
+              <h2>Competence</h2>
+              <ul>
+                  {% for skill in data.skills %}<li>{{ skill.skill }}<!--: {{ skill.niveau }} --></li>{% endfor %}
+              </ul>
+          </aside><!-- end of competence -->
 
-          <div id="langue">
+          <aside id="langue">
               <h2>Langues</h2>
               <div class="languages">
                   {% for lang in data.languages %}
@@ -113,7 +116,8 @@
                       </div>
                   {% endfor %}
               </div>
-          </div><!-- Language -->
+          </aside><!-- Language -->
+
       </section><!-- end of left div -->
   </div><!-- end of container -->
 </html>
