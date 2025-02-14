@@ -1,15 +1,16 @@
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 
 class CVForm(forms.Form):
     poste = forms.CharField(
         widget=forms.TextInput(attrs={"placeholder": "e.g: Enseignant", "class": "form-control"}),
         max_length=200,
-        label="Titre du Poste"
+        label=_("Post Title")
     )
     profile_image = forms.ImageField(
         widget=forms.ClearableFileInput(attrs={"class": "form-control"}),
-        label="Profile Image",
+        label=_("Profile Image"),
         required=False
     )
 
@@ -17,46 +18,48 @@ class CVForm(forms.Form):
     first_name = forms.CharField(
         widget=forms.TextInput(attrs={"placeholder": "First name", "class": "form-control"}),
         max_length=200,
-        label="Nom"
+        label=_("Name")
     )
     last_name = forms.CharField(
         widget=forms.TextInput(attrs={"placeholder": "Last Name", "class": "form-control"}),
         max_length=200,
-        label="Nom de Famille"
+        label=_("Last name")
     )
 
     # ---- Email Phone
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={'placeholder': 'Enter Email Address', "class": "form-control"}),
-        label="Email"
+        label=_("Email")
     )
     phone = forms.CharField(
         widget=forms.TextInput(attrs={"class": "form-control", 'placeholder': 'Enter Phone Number'}),
-        max_length=20, label="Phone"
+        max_length=20,
+        label=_("Phone")
     )
 
     # -- Ville, Paye
     ville = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'Enter your address', "class": "form-control"}),
         max_length=200,
-        label="Ville"
+        label=_("City")
     )
     paye = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'Your Country', "class": "form-control"}),
         max_length=200,
-        label="Payé"
+        label=_("Country")
     )
 
     # -- Address, CodePostal
     address = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'Address', "class": "form-control"}),
         max_length=200,
-        label='Address',
+        label=_('Address'),
         required=False)
+
     code_postal = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'Code Postal', "class": "form-control"}),
         max_length=100,
-        label='Code Postal',
+        label=_('Postal Code'),
         required=False
     )
 
@@ -64,25 +67,25 @@ class CVForm(forms.Form):
     sit_family = forms.CharField(
         widget=forms.TextInput(attrs={"placeholder": "Situation Familiale", "class": "form-control"}),
         max_length=200,
-        label="Situation Familiale",
+        label=_("Family Situation"),
         required=False
     )
     permis = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'e.g Permis B', "class": "form-control"}),
         max_length=100,
-        label='Permis de Conduire',
+        label=_('Driving License'),
         required=False
     )
 
     # -- D.Naissance, Profile
     d_naissance = forms.DateField(
         widget=forms.DateInput(attrs={'type': 'date', "class": "form-control"}),
-        label='Date de Naissance',
+        label=_('Date of Birth'),
         required=False
     )
     profile = forms.CharField(
         widget=forms.Textarea(attrs={"placeholder": "Your Resume", "rows": 5, "class": "form-control"}),
-        label="Profile",
+        label=_("Profile"),
         required=False
     )
     # --------------------------------------------------------------------

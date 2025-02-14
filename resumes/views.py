@@ -244,8 +244,8 @@ def create_cv(request):
         form = CVForm()
 
     templates = [
+        # Template for the Idea of this project
         {
-            # template for the Idea of this project
             "filename": "bleu_template.html",
             "name": "Project Idea Template CV",
             "image_url": "/static/images/bleu_template.png"
@@ -268,6 +268,18 @@ def create_cv(request):
             "name": "New York",
             "image_url": "/static/images/new_york.png"
         },
+        # New York template
+        {
+            "filename": "table_template.html",
+            "name": "Table",
+            "image_url": "/static/images/table_template.png"
+        },
+        # BootStrap template
+        {
+            "filename": "bs_template.html",
+            "name": "BootStrap Template",
+            "image_url": "/static/images/table_template.png"
+        },
     ]
 
-    return render(request, 'resumes/cv_form.html', {'form': form, 'templates': templates})
+    return render(request, 'resumes/cv_form.html', {'form': form, 'templates': templates, 'navbar': 'resumes'})

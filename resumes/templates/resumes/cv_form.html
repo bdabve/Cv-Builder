@@ -1,257 +1,231 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" href="{% static "resumes/css/bootstrap.min.css" %}">
-    <link rel="stylesheet" href="{% static "resumes/css/bootstrap-icons.min.css" %}">
-    <link rel="stylesheet" href="{% static 'resumes/css/form_style.css' %}">
-    <title>Create CV</title>
-</head>
+{% extends "base.html"%}
+{% load i18n %}
 
-<body>
-    <div id="container">
-        <div class="card m-auto my-5" style="width: 45rem;">
-            <!-- Card Header -->
-            <div class="card-header text-center">
-                <h1>Create Your CV</h1>
+{% block title %}CV Builder{% endblock %}
+
+{% block content %}
+<div class="card m-auto my-5" style="width: 55rem;">
+    <!-- Card Header -->
+    <div 
+        class="py-3 text-center d-flex justify-content-around align-items-center bg-dark bg-opacity-10 border-bottom">
+        <h2>Create Your CV</h2>
+
+        <button class="btn btn-success shadow" type="button" style="--bs-bg-opacity: .5;"
+                data-bs-toggle="offcanvas" data-bs-target="#cvTemplates" 
+                aria-controls="cvTemplates">
+            <i class="bi bi-card-image"></i>
+            Choose Templates
+        </button>
+    </div>
+
+    <!-- Card Body -->
+    <div class="card-body">
+        <form id="form" class="m-auto" method="post" enctype="multipart/form-data" style="width: 45rem;">
+            {% csrf_token %}
+
+            <!-- offcanvas Choose template -->
+            <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" 
+                 tabindex="-1" id="cvTemplates" aria-labelledby="offcanvasScrollingLabel">
+                <div class="offcanvas-header border">
+                    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">
+                        <i class="bi bi-card-image"></i>
+                        &nbsp;&nbsp;{% trans "Templates for CV" %}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+                </div>
+                <div class="offcanvas-body">
+                    <p class="lead text-center">Choose a CV Template:</p>
+                    <div class="d-flex flex-column align-items-center">
+                
+                        {% for template in templates %}
+                        <div class="mb-3">
+                            <label class="card template-card" style="width:18rem;">
+                                <input type="radio" name="cv_template" 
+                                       value="{{ template.filename }}" class="template-radio d-none">
+                        
+                                <div class="card shadow-sm">
+                                    <img src="{{ template.image_url }}" 
+                                         class="card-img-top template-img" alt="Template Preview">
+                                    <div class="card-body text-center">
+                                        <h6 class="card-title">{{ template.name }}</h6>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <input type="hidden" id="selected-template" name="selected_template">
+                </div>
+            </div>
+            <!-- end offcanvas -->
+
+            <!-- Hendle Errors -->
+            {% if form.errors %}
+                <div class="errors">
+                    <ul>
+                        {% for field, errors in form.errors.items %}
+                            <li>{{ field }}: {{ errors|join:", " }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+
+            <!-- ===================== Accordion de merde ================================================ -->
+            <div class="accordion accordion shadow" id="mainAccordion">
+                
+                <!-- mainInformation -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="information">
+                        <button class="accordion-button fs-5" 
+                                type="button" data-bs-toggle="collapse" data-bs-target="#collapseInfo" 
+                                aria-expanded="true" aria-controls="collapseInfo">
+                            <i class="bi bi-person-lines-fill"></i>&nbsp;&nbsp; {% trans "Main Informations" %}
+                        </button>
+                    </h2>
+                
+                    <div id="collapseInfo" class="accordion-collapse collapse show" 
+                        aria-labelledby="information" data-bs-parent="#mainAccordion">
+                        <div class="accordion-body">
+                            <!-- Include -->
+                            {% include "resumes/includes/personal_info.html" %}
+                        </div><!-- accordion body -->
+                    </div><!-- id collapse -->
+                </div>
+                <!-- end main information -->
+
+                <!-- Education -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="education">
+                        <button class="accordion-button collapsed fs-5" 
+                                type="button" data-bs-toggle="collapse" data-bs-target="#collapseEducation" 
+                                aria-expanded="false" aria-controls="collapseEducation">
+                            <i class="bi bi-mortarboard-fill"></i>&nbsp;&nbsp; Education
+                        </button>
+                    </h2>
+
+                
+                    <div id="collapseEducation" class="accordion-collapse collapse" 
+                        aria-labelledby="education" data-bs-parent="#mainAccordion">
+                        <div class="accordion-body">
+
+                            {% include "resumes/includes/education.html" %}
+
+                        </div><!-- Education Accordion Body -->
+                    </div><!-- ID Education Collapse -->
+                </div>
+                <!-- End Education -->
+              
+                <!-- Languages -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="languages">
+                        <button class="accordion-button collapsed fs-5" 
+                                type="button" data-bs-toggle="collapse" data-bs-target="#collapseLang" 
+                                aria-expanded="true" aria-controls="collapseLang">
+                            <i class="bi bi-translate"></i>&nbsp;&nbsp; Languages
+                        </button>
+                    </h2>
+
+                
+                    <div id="collapseLang" class="accordion-collapse collapse" 
+                        aria-labelledby="languages" data-bs-parent="#mainAccordion">
+                        <div class="accordion-body">
+
+                            {% include "resumes/includes/languages.html" %}
+
+                        </div>
+                    </div><!-- ID Collapse -->
+                </div>
+                <!-- End Languages -->
+
+                <!-- Links -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="Links">
+                        <button class="accordion-button collapsed fs-5" 
+                                type="button" data-bs-toggle="collapse" data-bs-target="#collapseLinks" 
+                                aria-expanded="false" aria-controls="collapseLinks">
+                            <i class="bi bi-browser-chrome"></i>&nbsp;&nbsp; Links
+                        </button>
+                    </h2>
+                
+                
+                    <div id="collapseLinks" class="accordion-collapse collapse" 
+                        aria-labelledby="Links" data-bs-parent="#mainAccordion">
+                        <div class="accordion-body">
+                            <!-- links Container -->
+                            {% include "resumes/includes/links.html" %}
+                        </div><!-- Accordion-body -->
+                    </div><!-- ID Collapse -->
+                </div>
+                <!-- End Links -->
+
+                <!-- Skills -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="skills">
+                        <button class="accordion-button collapsed fs-5" 
+                                type="button" data-bs-toggle="collapse" data-bs-target="#collapseSkills" 
+                                aria-expanded="false" aria-controls="collapseSkills">
+                            <i class="bi bi-list-check"></i>&nbsp;&nbsp; Skills
+                        </button>
+                    </h2>
+                    <div id="collapseSkills" class="accordion-collapse collapse" 
+                        aria-labelledby="skills" data-bs-parent="#mainAccordion">
+                        <div class="accordion-body">
+                            <!-- Include Skills -->
+                            {% include "resumes/includes/skills.html" %}
+                        </div><!-- Accordion Body -->
+                    </div><!-- ID Collapse -->
+                </div>
+                <!-- End Skills -->
+
+                <!-- Expérience -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="experience">
+                        <button class="accordion-button collapsed fs-5" 
+                                type="button" data-bs-toggle="collapse" data-bs-target="#collapseExp" 
+                                aria-expanded="false" aria-controls="collapseTwo">
+                            <i class="bi bi-briefcase-fill"></i>&nbsp;&nbsp; Expérience
+                        </button>
+                    </h2>
+                
+                
+                    <div id="collapseExp" class="accordion-collapse collapse" 
+                        aria-labelledby="experience" data-bs-parent="#mainAccordion">
+                        <div class="accordion-body clearfix">
+                            <!-- Main Experience -->
+                            {% include "resumes/includes/experience.html"%}
+                        </div><!-- --- accordion-body -->
+                    </div><!---------- id to collapse -->
+                </div>
+                <!-- Expérience -->
+            </div>
+            <!-- end of accordion -->
+
+            <!-- Submit Button -->
+            <div class="row align-items-center mt-4 p-2 border bg-dark bg-opacity-10 border border-2 rounded">
+                <div class="col d-flex justify-content-between">
+                    <div class="fs-5">
+                        <div class="form-check">
+                            <input id="save_pdf" class="form-check-input" type="radio" name="output_type" value="pdf">
+                            <label class="form-check-label" for="save_pdf">Save As PDF</label>
+                        </div>
+                    </div>
+
+                    <div class="fs-5">
+                        <div class="form-check">
+                            <input id="view_template" class="form-check-input" 
+                                   type="radio" name="output_type" value="view" checked>
+                            <label class="form-check-label" for="view_template">View in Browser</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <button type="submit" class="btn btn-success submit-btn float-end shadow">Generate CV</button>
+                </div>
             </div>
 
-            <!-- Card Body -->
-            <div class="card-body">
-                <form id="form" method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-
-                    <!-- Choose template -->
-                    <div class="d-grid">
-                        <button class="btn btn-primary mb-3" type="button" 
-                                data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" 
-                                aria-controls="offcanvasScrolling">
-                            Choose Templates
-                        </button>
-                    </div>
-
-                    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" 
-                         tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-                        <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Templates for cv</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-
-                        </div>
-                        <div class="offcanvas-body">
-                            <p class="lead text-center">Choose a CV Template:</p>
-                            <div class="d-flex flex-column align-items-center">
-                        
-                                {% for template in templates %}
-                                <div class="mb-3">
-                                    <label class="card template-card" style="width:18rem;">
-                                        <input type="radio" name="cv_template" 
-                                               value="{{ template.filename }}" class="template-radio d-none">
-                                
-                                        <div class="card shadow-sm">
-                                            <img src="{{ template.image_url }}" 
-                                                 class="card-img-top template-img" alt="Template Preview">
-                                            <div class="card-body text-center">
-                                                <h6 class="card-title">{{ template.name }}</h6>
-                                            </div>
-                                        </div>
-                                    </label>
-                                </div>
-                                {% endfor %}
-                            </div>
-                            <input type="hidden" id="selected-template" name="selected_template">
-                        </div>
-                    </div>
-
-                    <!-- Hendle Errors -->
-                    {% if form.errors %}
-                        <div class="errors">
-                            <ul>
-                                {% for field, errors in form.errors.items %}
-                                    <li>{{ field }}: {{ errors|join:", " }}</li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endif %}
-
-                    <!-- ===================== Accordion de merde ================================================ -->
-                    <div class="accordion accordion-flush" id="mainAccordion">
-                        
-                        <!-- mainInformation -->
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="information">
-                                <button class="accordion-button fs-5" 
-                                        type="button" data-bs-toggle="collapse" data-bs-target="#collapseInfo" 
-                                        aria-expanded="true" aria-controls="collapseInfo">
-                                    <i class="bi bi-person-lines-fill"></i>&nbsp;&nbsp; Profile
-                                </button>
-                            </h2>
-
-                        
-                            <div id="collapseInfo" class="accordion-collapse collapse show" 
-                                aria-labelledby="information" data-bs-parent="#mainAccordion">
-                                <div class="accordion-body">
-
-                                    {% include "resumes/includes/personal_info.html" %}
-
-                                </div><!-- accordion body -->
-                            </div><!-- id collapse -->
-                        </div><!-- end accordion-item -->
-
-                        <!-- =========================================================== -->
-                      
-                        <!-- Education -->
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="education">
-                                <button class="accordion-button collapsed fs-5" 
-                                        type="button" data-bs-toggle="collapse" data-bs-target="#collapseEducation" 
-                                        aria-expanded="false" aria-controls="collapseEducation">
-                                    <i class="bi bi-mortarboard-fill"></i>&nbsp;&nbsp; Education
-                                </button>
-                            </h2>
-
-                        
-                            <div id="collapseEducation" class="accordion-collapse collapse" 
-                                aria-labelledby="education" data-bs-parent="#mainAccordion">
-                                <div class="accordion-body">
-
-                                    {% include "resumes/includes/education.html" %}
-
-                                </div><!-- Education Accordion Body -->
-                            </div><!-- ID Education Collapse -->
-                        </div><!-- Education item -->
-
-                      
-                        <!-- ======= Languages =================================================== -->
-                      
-                        <!-- Languages -->
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="languages">
-                                <button class="accordion-button collapsed fs-5" 
-                                        type="button" data-bs-toggle="collapse" data-bs-target="#collapseLang" 
-                                        aria-expanded="true" aria-controls="collapseLang">
-                                    <i class="bi bi-translate"></i>&nbsp;&nbsp; Languages
-                                </button>
-                            </h2>
-
-                        
-                            <div id="collapseLang" class="accordion-collapse collapse" 
-                                aria-labelledby="languages" data-bs-parent="#mainAccordion">
-                                <div class="accordion-body">
-
-                                    {% include "resumes/includes/languages.html" %}
-
-                                </div>
-                            </div><!-- ID Collapse -->
-                        </div><!-- language accordion-item -->
-                    
-                      
-                        <!-- === Links =========================================================== -->
-                      
-                        <div class="accordion-item">
-                        
-                            <h2 class="accordion-header" id="Links">
-                            
-                                <button class="accordion-button collapsed fs-5" 
-                                    
-                                        type="button" data-bs-toggle="collapse" data-bs-target="#collapseLinks" 
-                                    
-                                        aria-expanded="false" aria-controls="collapseLinks">
-                                
-                                    <i class="bi bi-browser-chrome"></i>&nbsp;&nbsp; Links
-                            
-                                </button>
-                        
-                            </h2>
-                        
-                        
-                            <div id="collapseLinks" class="accordion-collapse collapse" 
-                                aria-labelledby="Links" data-bs-parent="#mainAccordion">
-                                <div class="accordion-body">
-                                    <!-- links Container -->
-                                    {% include "resumes/includes/links.html" %}
-                                </div><!-- Accordion-body -->
-                            </div><!-- ID Collapse -->
-
-                        </div><!-- Links accordion-item -->
-
-                        <!-- ==== Skills ========================================================= -->
-
-                      
-                        <div class="accordion-item">
-                        
-                            <h2 class="accordion-header" id="skills">
-                                <button class="accordion-button collapsed fs-5" 
-                                        type="button" data-bs-toggle="collapse" data-bs-target="#collapseSkills" 
-                                        aria-expanded="false" aria-controls="collapseSkills">
-                                    <i class="bi bi-list-check"></i>&nbsp;&nbsp; Skills
-                                </button>
-                            </h2>
-                            <div id="collapseSkills" class="accordion-collapse collapse" 
-                                aria-labelledby="skills" data-bs-parent="#mainAccordion">
-                                <div class="accordion-body">
-                                    <!-- Include Skills -->
-                                    {% include "resumes/includes/skills.html" %}
-                                </div><!-- Accordion Body -->
-                            </div><!-- ID Collapse -->
-                      
-                        </div><!-- Skills accordion-item -->
-
-                        <!-- ===================================================================== -->
-
-                        <!-- Expérience -->
-                      
-                        <div class="accordion-item">
-                        
-                            <h2 class="accordion-header" id="experience">
-                                <button class="accordion-button collapsed fs-5" 
-                                        type="button" data-bs-toggle="collapse" data-bs-target="#collapseExp" 
-                                        aria-expanded="false" aria-controls="collapseTwo">
-                                    <i class="bi bi-briefcase-fill"></i>&nbsp;&nbsp; Expérience
-                                </button>
-                            </h2>
-                        
-                        
-                            <div id="collapseExp" class="accordion-collapse collapse" 
-                                aria-labelledby="experience" data-bs-parent="#mainAccordion">
-                                <div class="accordion-body clearfix">
-                                    <!-- Main Experience -->
-                                    {% include "resumes/includes/experience.html"%}
-                                </div><!-- --- accordion-body -->
-                            </div><!---------- id to collapse -->
-                        </div><!------------ accordion-item -->
-                    
-                    </div><!-- end of accordion -->
-
-                    <!-- ===================================================================== -->
-                    <!-- Submit Button -->
-                    <div class="d-flex justify-content-end align-items-center mt-4">
-                        <div class="me-4 fs-5">
-                            <div class="form-check">
-                                <input id="save_pdf" class="form-check-input" type="radio" name="output_type" value="pdf">
-                                <label class="form-check-label" for="save_pdf">Save As PDF</label>
-                            </div>
-                        </div>
-
-                        <div class="me-4 fs-5">
-                            <div class="form-check">
-                                <input id="view_template" class="form-check-input" 
-                                       type="radio" name="output_type" value="view" checked>
-                                <label class="form-check-label" for="view_template">View in Browser</label>
-                            </div>
-                        </div>
-
-                        <div class="">
-                            <button type="submit" class="fs-5 btn btn-primary submit-btn">Generate CV</button>
-                        </div>
-                    </div>
-
-                </form>
-            </div><!--end of card-body -->
-        </div><!-- end of form card -->
-    </div><!-- end of container -->
-
-    <script src='{% static "resumes/js/jQuery-3.7.1.js" %}'></script>
-    <script src='{% static "resumes/js/bootstrap.bundle.min.js" %}'></script>
-    <script src='{% static "resumes/js/main.js" %}'></script>
-</body>
-</html>
+        </form>
+    </div><!--end of card-body -->
+</div><!-- end of form card -->
+{% endblock %}

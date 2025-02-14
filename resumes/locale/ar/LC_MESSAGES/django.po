@@ -1,0 +1,84 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-14 21:01+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: resumes/forms.py:9
+msgid "Post Title"
+msgstr "مسمى الوضيفي"
+
+#: resumes/forms.py:13
+msgid "Profile Image"
+msgstr "صورة الملف الشخصي"
+
+#: resumes/forms.py:21
+msgid "Name"
+msgstr "الإسم"
+
+#: resumes/forms.py:26
+msgid "Last name"
+msgstr "إسم العائلة"
+
+#: resumes/forms.py:32
+msgid "Email"
+msgstr "الإيمايل"
+
+#: resumes/forms.py:37
+msgid "Phone"
+msgstr "رقم الهاتف"
+
+#: resumes/forms.py:44
+msgid "City"
+msgstr "المدينة"
+
+#: resumes/forms.py:49
+msgid "Country"
+msgstr "البلد"
+
+#: resumes/forms.py:56
+msgid "Address"
+msgstr "العنوان"
+
+#: resumes/forms.py:62
+msgid "Postal Code"
+msgstr "الرمز البريدي"
+
+#: resumes/forms.py:70
+msgid "Family Situation"
+msgstr "الحالة العائلية"
+
+#: resumes/forms.py:76
+msgid "Driving License"
+msgstr "رخصة السياقة"
+
+#: resumes/forms.py:83
+msgid "Date of Birth"
+msgstr "تاريخ الميلاد"
+
+#: resumes/forms.py:88
+msgid "Profile"
+msgstr "ملخص وظيفي"
+
+#: resumes/templates/resumes/cv_form.html:31
+msgid "Templates for CV"
+msgstr "قوالب السيرة الذاتية"
+
+#: resumes/templates/resumes/cv_form.html:82
+msgid "Main Informations"
+msgstr "المعلومات الرئيسية"

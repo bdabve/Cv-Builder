@@ -25,7 +25,7 @@ body {
     transform: scale(1.05);
 }
 
-.common-skills {
+.common-skills, .common-languages {
     position: relative;
     display: flex;
     flex-wrap: wrap;
@@ -48,9 +48,18 @@ body {
   will-change: opacity, transform;
   cursor: pointer;
 }
-.skill:hover {
+
+.language {
+  cursor: pointer;
+}
+
+.skill:hover, .language:hover {
     background-color: rgb(234, 246, 255);
     color: rgb(26, 145, 240);
+}
+
+.date-inputs {
+    gap: 7px;
 }
 
 /*.date-container {*/

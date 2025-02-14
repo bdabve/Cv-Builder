@@ -1,0 +1,194 @@
+{% load static %}
+{% load custom_filters %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CV {{ data.first_name }} {{ data.last_name }}</title>
+    <link rel="stylesheet" href="{% static "resumes/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "resumes/css/bootstrap-icons.min.css" %}">
+    <style>
+        section {
+          break-inside: avoid;
+        }
+    </style>
+</head>
+
+<header class="d-flex align-items-center">
+    {% if data.profile_image_url %}
+        <img src="{{ data.profile_image_url }}" alt="Profile Image">
+    {% endif %}
+    <div class="text-center w-100">
+        <h1 class="text-capitalize">{{ data.first_name }} {{ data.last_name }}, {{ data.poste }}</h1>
+        <div class="fw-bold">
+            {% if data.d_naissance %}<p>📅 D.Naissance: {{ data.d_naissance}}</p>{% endif %}
+            <!--{{ data.address|default:"" }}-->
+            {{ data.ville }} {% if data.code_postal %}({{ data.code_postal }}), {% endif %}{{ data.paye }},
+            <span>{{ data.phone }}, </span>
+            <span> {{ data.email }}</span>
+        </div>
+    </div>
+</header>
+<hr>
+
+<!-- Links -->
+<aside class="d-flex mb-2 gap-3">
+    <div class="w-25">
+        <h2>Links</h2>
+    </div>
+    <div class="p-3 w-75 bg-secondary-subtle border-start border-secondary border-3 rounded">
+        {% for link in data.links %}
+            {% comment %}<p class="link-name">{{ link.name|default:"" }}</p>{% endcomment %}
+            <a href="#" class="text-decoration-none">{{ link.url|default:"" }}</a>
+            <br>
+        {% endfor %}
+    </div>
+</aside>
+
+<hr>
+
+<!-- Profile -->
+<aside class="d-flex mb-2 gap-3">
+    <div class="w-25">
+        <h2>Profile</h2>
+    </div>
+    <div class="p-3 w-75 bg-secondary-subtle border-start border-secondary border-3 rounded">
+        <p>{{ data.profile }}</p>
+    </div>
+</aside>
+
+<hr>
+
+<!-- Experiences -->
+<section>
+    <h2 class="mb-4">Experiences</h2>
+
+    {% for exp in data.experiences %}
+        <aside class="d-flex mb-2 gap-3">
+            <div class="w-25 text-secondary text-center">
+                {% if exp.exp_start_date %}{{ exp.exp_start_date }} - {{ exp.exp_end_date }}{% endif %}
+            </div>
+
+            <div class="p-3 w-75 bg-secondary-subtle border-start border-secondary border-3 rounded">
+                <div class="small-title">
+                    {{ exp.exp_post_title }}, 
+                    <span class="employee" style="text-transform: uppercase;">{{ exp.exp_employee }}</span>
+                </div>
+
+                {% if exp.exp_description|is_list %}
+                    <ul>
+                        {% for desc in exp.exp_description %}
+                            <li>{{ desc }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>{{ exp.exp_description }}</p>
+                {% endif %}
+            </div>
+        </aside>
+    {% endfor %}
+</section>
+
+<hr>
+
+<!-- Educations -->
+<section>
+    <h2>Education</h2>
+    {% for edu in data.educations %}
+        <aside class="d-flex gap-2 mb-2">
+            {% if edu.edu_start_date %}
+            <div class="w-25 text-secondary text-end">
+                <p class="text-secondary">{{ edu.edu_start_date }} - {{ edu.edu_end_date }}</p>
+            </div>
+            {% endif %}
+
+            <div class="p-3 w-75 bg-secondary-subtle border-start border-secondary border-3 rounded">
+                <div class="">
+                    {{ edu.edu_diplome }}, 
+                    <b>{{ edu.edu_ecole }}</b>
+                    {% if edu.edu_ville %}, {{ edu.edu_ville }}{% endif %}
+                </div>
+
+          
+                {% if edu.edu_description|is_list %}
+                    <ul>
+                        {% for desc in edu.edu_description %}
+                        <li>{{ desc }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>{{ edu.edu_description }}</p>
+                {% endif %}
+            </div>
+        </aside>
+    {% endfor %}
+</section>
+
+<hr>
+
+<!-- skills -->
+<aside class="d-flex gap-2 mb-2">
+    <div class="w-25 mb-4">
+        <h2>Skills</h2>
+    </div>
+    <div class="p-3 w-75 bg-secondary-subtle border-start border-secondary border-3 rounded">
+        <ul class="list-group">
+            <div class="row">
+            {% for skill in data.skills %}
+            <div class="col-md-4">
+                <li class="list-group-item bg-secondary-subtle">
+                    {{ skill.skill }}
+                    {% comment %}, {{ skill.niveau }}{% endcomment %}
+                </li>
+            </div>
+            {% endfor %}
+            </div>
+        </ul>
+    </div>
+</aside>
+
+<hr>
+
+<!-- Languages -->
+<aside class="d-flex gap-2 mb-2">
+    <div class="w-25">
+        <h2>Languages</h2>
+    </div>
+    <div class="p-3 w-75 bg-secondary-subtle border-start border-secondary border-3 rounded">
+        <ul class="list-group">
+            <div class="row">
+            {% for lang in data.languages %}
+                <div class="col col-md-4">
+                    <li class="py-1 list-group-item bg-secondary-subtle d-flex justify-content-between">
+                      <p class="m-0">{{ lang.language }}</p>
+                      <p class="m-0 text-muted">{{ lang.proficiency }}</p>
+                    </li>
+                </div>
+            {% endfor %}
+            </div>
+        </ul>
+    </div>
+</aside>
+
+
+
+
+
+{% comment %}
+<div id="container">
+    <div id="left">
+        <div class="contact">
+            </p>
+            <p>{{ data.permis|default:"" }}</p>
+            <p>{% if data.sit_family %}💍 {{ data.sit_family }} {% endif %}</p>
+        </div><!-- contact div -->
+      
+        <div id="languaages">
+        </div>
+
+    </div><!-- end of left div -->
+
+</div><!-- end of container -->
+{% endcomment %}
+
+</html>

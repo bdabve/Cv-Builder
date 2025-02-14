@@ -1,0 +1,83 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-14 21:01+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: resumes/forms.py:9
+msgid "Post Title"
+msgstr "Titre du poste"
+
+#: resumes/forms.py:13
+msgid "Profile Image"
+msgstr "Image du Profile"
+
+#: resumes/forms.py:21
+msgid "Name"
+msgstr "Nom"
+
+#: resumes/forms.py:26
+msgid "Last name"
+msgstr "Nom de Famille"
+
+#: resumes/forms.py:32
+msgid "Email"
+msgstr "Email"
+
+#: resumes/forms.py:37
+msgid "Phone"
+msgstr "Tel"
+
+#: resumes/forms.py:44
+msgid "City"
+msgstr "Ville"
+
+#: resumes/forms.py:49
+msgid "Country"
+msgstr "Payé"
+
+#: resumes/forms.py:56
+msgid "Address"
+msgstr "Adresse"
+
+#: resumes/forms.py:62
+msgid "Postal Code"
+msgstr "Code Postale"
+
+#: resumes/forms.py:70
+msgid "Family Situation"
+msgstr "Situation Familiale"
+
+#: resumes/forms.py:76
+msgid "Driving License"
+msgstr "Permis de Conduire"
+
+#: resumes/forms.py:83
+msgid "Date of Birth"
+msgstr "Date de Naissance"
+
+#: resumes/forms.py:88
+msgid "Profile"
+msgstr "Profil"
+
+#: resumes/templates/resumes/cv_form.html:31
+msgid "Templates for CV"
+msgstr "Modèles de CV"
+
+#: resumes/templates/resumes/cv_form.html:82
+msgid "Main Informations"
+msgstr "Informations Principales"

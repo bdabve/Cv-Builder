@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#
-# author        : el3arbi bdabve@gmail.com
-# created       :
-# desc          :
-# ----------------------------------------------------------------------------
 
 import os
 import dotenv
@@ -12,21 +7,23 @@ dotenv.load_dotenv(dotenv.find_dotenv())
 
 import google.generativeai as genai
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 
 def generate_profile(job_title):
-    try:
-        prompt = f"""
-        You are an expert in career development and job market analysis.
-        I am building a CV generator, and I need a profile of given job title.
+    prompt = f"""
+    You are an expert in career development and job market analysis.
+    I am building a CV generator, and I need a profile of given job title.
 
-        Generate a professional summary for a {job_title} profile.
-        Detect the language of the job title provided and return the response in the same language.
-        The summary should highlight key skills, expertise, and experience relevant to the role.
-        Keep it concise (100-150 words) and well-structured, making it suitable for a CV or LinkedIn profile.
-        Use a professional and engaging tone.
-        """
+    - Generate a professional summary for a {job_title} profile.
+    - Detect the language of the job title provided and return the response in the same language.
+    - The summary should highlight key skills, expertise, and experience relevant to the role.
+    - Keep it concise (100-150 words) and well-structured, making it suitable for a CV or LinkedIn profile.
+    - Use a professional and engaging tone.
+    - Do **not** include unnecessary explanations, just return the experience description as a single string.
+    """
+    try:
         res = model.generate_content(prompt)
         ai_profile = res.text
         return {'status': 'success', 'ai_profile': ai_profile}
@@ -79,8 +76,8 @@ def generate_skills(job_title):
         ]
     }}
 
-    Make sure the skills are **highly relevant** and include both **technical** and **soft skills** if applicable.
-    Only return the JSON response without any extra text.
+    - Make sure the skills are **highly relevant** and include both **technical** and **soft skills** if applicable.
+    - Only return the JSON response without any extra text.
     """
     try:
         res = model.generate_content(prompt)
@@ -119,5 +116,27 @@ def generate_experience_description(job_title):
 
 
 if __name__ == '__main__':
-    res = generate_experience_description('Programeur python')
-    print(res)
+    """
+    Install an additional SDK for JSON schema support Google AI Python SDK
+    $ pip install google.ai.generativelanguage
+    """
+    import time
+    import pyautogui
+    from pathlib import Path
+
+    BASE_DIR = Path(__file__).resolve().parent.parent
+
+    time.sleep(2)
+    pyautogui.hotkey('ctrl', 'p')
+    # x = 1103
+    # y = 695
+    time.sleep(1)
+    pyautogui.press('return')
+
+    time.sleep(1)
+    x = 458
+    y = 72
+    pyautogui.click(x, y)
+
+    # pyautogui.write(str(BASE_DIR))
+    # pyautogui.press('return')

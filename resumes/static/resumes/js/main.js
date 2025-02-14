@@ -190,11 +190,12 @@ $(document).ready(function() {
 
     // ---------------------------------------------------------------------
     // Language Add
-    $("#add-language-btn").click(function() {
+    function createLanguageRow(language = "") {
         let newLanguageRow = $(`
             <div class="row mb-3 content-div fade-in">
                 <div class="col">
-                    <input type="text" name="languages_${languageCount}" placeholder="Enter a language" class="form-control">
+                    <input type="text" name="languages_${languageCount}" placeholder="Enter a language" class="form-control"
+                            value="${language}">
                 </div>
                 <div class="col d-flex justify-content-between">
                     <select name="proficiency_${languageCount}" class="form-select">
@@ -211,8 +212,27 @@ $(document).ready(function() {
         `);
         $("#languages-container").append(newLanguageRow);
         languageCount++;
+    }
+
+    $("#add-language-btn").click(function() {
+        createLanguageRow();
     });
 
+    // Add Skills from Common Skills
+    $("#common-languages").on("click", ".language", function () {
+        let selectedLanguage = $(this).text().trim().replace("+", "").trim();
+        let languageExists = $('#languages-container input[name^="language_"]').filter(function () {
+            return $(this).val() === selectedLanguage;
+        }).length > 0;
+
+        if (!languageExists) {
+            createLanguageRow(selectedLanguage);
+            //commonLanguages = commonSkills.filter(skill => skill !== selectedSkill);
+        }
+
+        $(this).fadeOut(300, function () { $(this).remove(); });
+        //console.log(commonSkills)
+    });
     // ---------------------------------------------------------------------
     // Links
     $("#add-link-btn").click(function() {
@@ -269,7 +289,7 @@ $(document).ready(function() {
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label" for="exp_post_title_${experienceCount}">Poste</label>
-                                <input class="form-control" id="exp_post_title_${experienceCount}"
+                                <input class="form-control poste-title" id="exp_post_title_${experienceCount}"
                                        type="text"
                                        placeholder="Poste title"
                                        name="exp_post_title_${experienceCount}">
@@ -317,8 +337,12 @@ $(document).ready(function() {
                                         </label>
                                     </div>
 
-                                    <button class="btn btn-sm btn-info ai-exp-desc">
-                                        <i class="bi bi-robot"></i> AI Generate Description
+                                    <button class="btn btn-sm btn-warning ai-exp-desc"
+                                            data-bs-toggle="tooltip" title="Generate Description With IA"
+                                            data-bs-placement="right">
+                                        <i class="bi bi-robot"></i> AI Generate Description&nbsp;
+                                        <span class="ai-exp-spinner spinner-border spinner-border-sm d-none" aria-hidden="true">
+                                        </span>
                                     </button>
                                 </div>
 
@@ -400,7 +424,7 @@ $(document).ready(function() {
         btn.prop('disabled', true);
 
         if (!diploma) {
-                alert("Please enter a diploma before generating a description.");
+                alert("Please enter a poste title before generating a description.");
                 return;
             }
 
@@ -520,8 +544,12 @@ $(document).ready(function() {
                                         </label>
                                     </div>
 
-                                    <button class="btn btn-sm btn-info ai-edu-desc">
+                                    <button class="btn btn-sm btn-info ai-edu-desc"
+                                            data-bs-toggle="tooltip" title="Generate Description With IA"
+                                            data-bs-placement="right">
                                         <i class="bi bi-robot"></i> AI Generate Description
+                                        <span class="ai-edu-spinner spinner-border spinner-border-sm d-none" aria-hidden="true">
+                                        </span>
                                     </button>
                                 </div>
                                 <textarea class="form-control" id="edu_description_${educationCount}"
@@ -549,5 +577,25 @@ $(document).ready(function() {
 
         // Set the hidden input value to the selected template filename
         $("#selected-template").val($(this).find("input").val());
+    });
+
+    // ---------------------------------------------------------------------
+    // Toggle Theme
+    // Check if dark mode is already enabled in localStorage
+    if (localStorage.getItem("theme") === "dark") {
+        $("html").attr("data-bs-theme", "dark");
+        $("#darkModeToggle").text("Disable Dark Mode").removeClass("btn-dark").addClass("btn-light");
+    }
+
+    // Toggle dark mode
+    $('#dark-theme').click(function() {
+        let currentTheme = $("html").attr("data-bs-theme");
+        if ( currentTheme === "light" ) {
+            $("html").attr("data-bs-theme", "dark");
+            localStorage.setItem("theme", "dark")
+        } else {
+            $("html").attr("data-bs-theme", "light");
+            localStorage.setItem("theme", "light")
+        }
     });
 });
